@@ -37,13 +37,30 @@
     body {
       min-width: 320px;
       background:
-        radial-gradient(circle at 18% 0%, rgba(215, 25, 32, 0.15), transparent 31rem),
-        radial-gradient(circle at 95% 18%, rgba(92, 12, 16, 0.32), transparent 34rem),
+        radial-gradient(circle at 18% 0%, rgba(215, 25, 32, 0.18), transparent 31rem),
+        radial-gradient(circle at 95% 18%, rgba(92, 12, 16, 0.34), transparent 34rem),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 118px),
+        repeating-linear-gradient(0deg, rgba(215, 25, 32, 0.018) 0 1px, transparent 1px 118px),
         var(--paper);
       color: var(--ink);
       font-family: Lato, Arial, sans-serif;
       font-size: 16px;
       line-height: 1.75;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 22%, rgba(215, 25, 32, 0.2) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 12%, rgba(239, 233, 220, 0.18) 0 1px, transparent 2px),
+        radial-gradient(circle at 86% 68%, rgba(215, 25, 32, 0.22) 0 1px, transparent 2px),
+        radial-gradient(circle at 34% 78%, rgba(239, 233, 220, 0.12) 0 1px, transparent 2px);
+      background-size: 210px 210px, 260px 260px, 230px 230px, 310px 310px;
+      opacity: 0.65;
     }
 
     img {
@@ -116,7 +133,10 @@
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: radial-gradient(circle at 34% 28%, #ff7a7f, var(--gold) 54%, #65080c 100%);
+      background:
+        linear-gradient(45deg, transparent 42%, rgba(255, 255, 255, 0.26) 43% 45%, transparent 46%),
+        linear-gradient(-45deg, transparent 42%, rgba(255, 255, 255, 0.18) 43% 45%, transparent 46%),
+        radial-gradient(circle at 34% 28%, #ff7a7f, var(--gold) 54%, #65080c 100%);
       color: #fff;
       box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.08), 0 8px 18px rgba(0, 0, 0, 0.22);
       font-family: "Abril Fatface", Georgia, serif;
@@ -197,8 +217,32 @@
       display: grid;
       align-items: center;
       background:
-        linear-gradient(92deg, rgba(8, 7, 8, 0.95) 0%, rgba(56, 10, 13, 0.82) 48%, rgba(88, 12, 17, 0.22) 100%),
+        radial-gradient(circle at 75% 28%, rgba(215, 25, 32, 0.25), transparent 20rem),
+        linear-gradient(92deg, rgba(8, 7, 8, 0.96) 0%, rgba(56, 10, 13, 0.84) 48%, rgba(88, 12, 17, 0.25) 100%),
         url("https://images.unsplash.com/photo-1518709268805-4e9042af2176?auto=format&fit=crop&w=1600&q=80") center right / cover no-repeat;
+    }
+
+    .hero::before {
+      content: "ARCANA  -  RITUS  -  NOX";
+      position: absolute;
+      right: clamp(18px, 5vw, 74px);
+      bottom: 112px;
+      width: 168px;
+      height: 168px;
+      border: 1px solid rgba(215, 25, 32, 0.5);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: rgba(239, 233, 220, 0.48);
+      font-family: Poppins, Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-align: center;
+      box-shadow:
+        inset 0 0 0 28px rgba(8, 7, 8, 0.24),
+        inset 0 0 0 29px rgba(215, 25, 32, 0.24),
+        0 0 45px rgba(215, 25, 32, 0.18);
     }
 
     .hero::after {
@@ -225,6 +269,7 @@
       font-weight: 700;
       letter-spacing: 0.01em;
       margin-bottom: 12px;
+      text-transform: uppercase;
     }
 
     h1,
@@ -348,8 +393,11 @@
       width: 54px;
       height: 54px;
       border-radius: 50%;
-      background: var(--green);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(215, 25, 32, 0.32), transparent 58%),
+        #0a0708;
       color: var(--gold);
+      border: 1px solid rgba(215, 25, 32, 0.56);
       display: grid;
       place-items: center;
       font-size: 22px;
@@ -395,7 +443,7 @@
 
     .transform {
       background:
-        linear-gradient(135deg, rgba(20, 26, 27, 0.98), rgba(10, 13, 15, 0.98)),
+        linear-gradient(135deg, rgba(18, 10, 12, 0.98), rgba(8, 7, 8, 0.98)),
         radial-gradient(circle at 78% 18%, rgba(215, 25, 32, 0.16), transparent 28rem);
       position: relative;
       overflow: hidden;
@@ -429,6 +477,8 @@
       object-fit: cover;
       box-shadow: var(--shadow);
       background: #111719;
+      filter: saturate(0.82) contrast(1.08) brightness(0.78);
+      border: 1px solid rgba(215, 25, 32, 0.22);
     }
 
     .image-stack .talisman {
@@ -476,6 +526,8 @@
       min-height: 340px;
       object-fit: cover;
       box-shadow: var(--shadow);
+      filter: saturate(0.8) contrast(1.08) brightness(0.76);
+      border: 1px solid rgba(215, 25, 32, 0.2);
     }
 
     .love-media .short {
@@ -544,6 +596,7 @@
       padding: 34px;
       box-shadow: var(--shadow);
       border: 1px solid rgba(215, 25, 32, 0.24);
+      box-shadow: 0 0 0 1px rgba(215, 25, 32, 0.05), var(--shadow);
     }
 
     .form-card h3 {
@@ -887,10 +940,10 @@
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <div class="eyebrow">Consulenze intuitive e rituali su misura</div>
-          <h1>Un percorso spirituale pensato per ritrovare chiarezza e forza</h1>
-          <p>Quando una situazione sembra bloccata, una guida esperta puo aiutarti a leggere meglio cio che accade e a scegliere la direzione giusta. Harouna propone consulti riservati e rituali personalizzati per amore, protezione, benessere interiore e nuove possibilita.</p>
-          <a class="button" href="#contatto">Richiedi un consulto</a>
+          <div class="eyebrow">Rituali esoterici e consulti riservati</div>
+          <h1>Apri il varco tra intuizione, destino e volonta</h1>
+          <p>Quando una situazione sembra sigillata, un percorso esoterico puo aiutarti a leggere i segni nascosti e a ritrovare potere personale. Harouna propone consulti riservati e rituali personalizzati per amore, protezione, purificazione e scioglimento dei blocchi.</p>
+          <a class="button" href="#contatto">Entra nel rito</a>
         </div>
       </div>
     </section>
@@ -898,9 +951,9 @@
     <section class="section" id="servizi">
       <div class="container">
         <div class="center">
-          <div class="eyebrow">Percorsi disponibili</div>
-          <h2>Consulti spirituali e rituali dedicati in Italia</h2>
-          <p class="section-intro">Ogni intervento parte dall'ascolto della tua storia: poi viene definito un cammino pratico, discreto e calibrato sul problema da affrontare.</p>
+          <div class="eyebrow">Il cerchio dei servizi</div>
+          <h2>Pratiche esoteriche e rituali dedicati in Italia</h2>
+          <p class="section-intro">Ogni intervento nasce dall'ascolto della tua storia: si osservano segni, ostacoli e legami invisibili, poi viene definito un rito discreto e calibrato sul problema da affrontare.</p>
         </div>
 
         <div class="service-lead">
@@ -910,25 +963,25 @@
 
           <div class="services-grid">
             <article class="service">
-              <div class="service-icon">1</div>
+              <div class="service-icon">I</div>
               <div>
-                <h3>Lettura completa della situazione</h3>
-                <p>Un consulto ampio per osservare relazioni, lavoro, serenita personale e scelte future. L'obiettivo e individuare i nodi principali e trasformare la confusione in indicazioni piu leggibili.</p>
+                <h3>Lettura dei segni nascosti</h3>
+                <p>Un consulto ampio per osservare relazioni, lavoro, serenita personale e scelte future. L'obiettivo e individuare i nodi invisibili e trasformare la confusione in indicazioni piu leggibili.</p>
                 <a class="text-link" href="#contatto">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
-              <div class="service-icon">2</div>
+              <div class="service-icon">II</div>
               <div>
-                <h3>Riequilibrio energetico</h3>
+                <h3>Riequilibrio dell'aura</h3>
                 <p>Per momenti di stanchezza, agitazione, pensieri ricorrenti o perdita di fiducia. Il lavoro si concentra sul recupero di calma, stabilita e protezione personale.</p>
                 <a class="text-link" href="#contatto">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
-              <div class="service-icon">3</div>
+              <div class="service-icon">III</div>
               <div>
                 <h3>Chiarezza in amore</h3>
                 <p>Per comprendere sentimenti, distanze, dubbi e dinamiche di coppia. Il percorso aiuta a fare ordine nelle emozioni e a riconoscere cio che puo essere ricostruito.</p>
@@ -937,27 +990,27 @@
             </article>
 
             <article class="service">
-              <div class="service-icon">4</div>
+              <div class="service-icon">IV</div>
               <div>
-                <h3>Rituale per riavvicinamento</h3>
+                <h3>Rituale di riavvicinamento</h3>
                 <p>Quando un legame importante si e raffreddato o interrotto, il rituale lavora sull'armonia emotiva, sul dialogo e sulla possibilita di riaprire uno spazio di contatto.</p>
                 <a class="text-link" href="#contatto">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
-              <div class="service-icon">5</div>
+              <div class="service-icon">V</div>
               <div>
-                <h3>Connessione spirituale</h3>
+                <h3>Connessione con il piano sottile</h3>
                 <p>Un momento raccolto per chi cerca segnali, conforto o una lettura piu profonda del proprio cammino. La seduta viene gestita con rispetto, riservatezza e attenzione.</p>
                 <a class="text-link" href="#contatto">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
-              <div class="service-icon">6</div>
+              <div class="service-icon">VI</div>
               <div>
-                <h3>Purificazione e protezione</h3>
+                <h3>Purificazione e scudo rituale</h3>
                 <p>Per allontanare pesantezza, invidie, blocchi e influenze percepite come negative. Il rituale mira a ristabilire leggerezza, centratura e sicurezza interiore.</p>
                 <a class="text-link" href="#contatto">Prenota una sessione</a>
               </div>
@@ -970,11 +1023,11 @@
     <section class="section transform">
       <div class="container">
         <div class="copy">
-          <div class="eyebrow">Un metodo discreto e personale</div>
-          <h2>Scegli un percorso che parli davvero alla tua situazione</h2>
-          <p>Non esistono due storie uguali. Per questo ogni consulto parte da un confronto diretto: si ascolta il problema, si osservano i segnali ricorrenti e si decide quale tipo di intervento puo essere piu adatto.</p>
+          <div class="eyebrow">Metodo riservato e rituale</div>
+          <h2>Scegli il rito che risuona con la tua energia</h2>
+          <p>Non esistono due storie uguali. Per questo ogni consulto parte da un confronto diretto: si ascolta il problema, si osservano i segnali ricorrenti e si decide quale pratica puo essere piu adatta.</p>
           <p>Che tu stia cercando risposte in amore, protezione da energie pesanti o un momento di orientamento, puoi richiedere un incontro riservato e ricevere una proposta costruita attorno alle tue esigenze.</p>
-          <a class="button outline" href="#contatto">Scopri il percorso</a>
+          <a class="button outline" href="#contatto">Scopri il rito</a>
         </div>
         <div class="image-stack" aria-label="Rituali e immagini spirituali">
           <img class="talisman" src="https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&w=700&q=80" alt="Candele per rituale spirituale">
@@ -991,8 +1044,8 @@
           <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80" alt="Cuore e luce calda">
         </div>
         <div class="copy">
-          <div class="eyebrow">Amore, legami e nuove possibilita</div>
-          <h2>Ritrova equilibrio nelle questioni del cuore</h2>
+          <div class="eyebrow">Legami, desiderio e magnetismo</div>
+          <h2>Ritrova il filo occulto delle questioni del cuore</h2>
           <p>Le relazioni possono diventare complicate quando entrano in gioco silenzi, paure, gelosie o distanza. Un consulto dedicato all'amore aiuta a leggere meglio la situazione e a distinguere cio che nasce dal sentimento da cio che nasce dalla confusione.</p>
           <p>Il percorso puo riguardare un ritorno, una riconciliazione, il rafforzamento di un rapporto o la ricerca di maggiore serenita affettiva. Ogni passaggio viene valutato con attenzione, senza formule generiche.</p>
           <p>Se senti che una relazione merita uno sguardo piu profondo, puoi chiedere un confronto riservato e ricevere indicazioni concrete sul prossimo passo.</p>
@@ -1003,8 +1056,8 @@
 
     <section class="contact" id="contatto">
       <div class="container">
-        <div class="eyebrow">Contatto diretto e riservato</div>
-        <h2>Richiedi un consulto e racconta la tua situazione</h2>
+        <div class="eyebrow">Il primo contatto</div>
+        <h2>Racconta la tua situazione e apri il consulto</h2>
         <div class="contact-grid">
           <div class="contact-list">
             <div class="contact-item">
