@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Professore Baben - Grande Veggente Medium Africano</title>
   <meta name="description" content="Professore Baben, grande veggente medium africano. Consulti per amore, fortuna, lavoro, esami, protezione e problemi spirituali." />
+  <link rel="icon" type="image/png" href="assets/34ecbbe6-bb61-433b-9576-5d767a407168.png">
+  <link rel="apple-touch-icon" href="assets/34ecbbe6-bb61-433b-9576-5d767a407168.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato:wght@300;400;700;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -70,7 +72,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      opacity: 0.86;
+      opacity: 0.38;
       mix-blend-mode: screen;
     }
 
@@ -1740,25 +1742,32 @@
 
     const canvas = document.querySelector(".ritual-3d-canvas");
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setClearColor(0x000000, 0);
+    renderer.shadowMap.enabled = true;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     camera.position.set(0, 0, 8.4);
 
-    const red = new THREE.MeshStandardMaterial({ color: 0x8f0e15, metalness: 0.42, roughness: 0.34, emissive: 0x2b0306, emissiveIntensity: 0.42 });
-    const dark = new THREE.MeshStandardMaterial({ color: 0x12090a, metalness: 0.18, roughness: 0.72, emissive: 0x150204, emissiveIntensity: 0.24 });
-    const bone = new THREE.MeshStandardMaterial({ color: 0xc8b8a4, metalness: 0.08, roughness: 0.55, emissive: 0x1a0808, emissiveIntensity: 0.12 });
-    const thread = new THREE.MeshStandardMaterial({ color: 0x2a0b0d, metalness: 0.05, roughness: 0.9 });
-    const glow = new THREE.MeshStandardMaterial({ color: 0xff1c26, metalness: 0.2, roughness: 0.28, emissive: 0xff1c26, emissiveIntensity: 1.35 });
+    // Materials
+    const matRed   = new THREE.MeshStandardMaterial({ color: 0xaa1018, metalness: 0.72, roughness: 0.18, emissive: 0x3a0306, emissiveIntensity: 0.55 });
+    const matGold  = new THREE.MeshStandardMaterial({ color: 0xc8922a, metalness: 0.88, roughness: 0.12, emissive: 0x3a2008, emissiveIntensity: 0.35 });
+    const matBone  = new THREE.MeshStandardMaterial({ color: 0xd8c8b0, metalness: 0.15, roughness: 0.45, emissive: 0x180808, emissiveIntensity: 0.18 });
+    const matDark  = new THREE.MeshStandardMaterial({ color: 0x0e0608, metalness: 0.55, roughness: 0.35, emissive: 0x100204, emissiveIntensity: 0.28 });
+    const matGlow  = new THREE.MeshStandardMaterial({ color: 0xff2a30, metalness: 0.1,  roughness: 0.1,  emissive: 0xff2a30, emissiveIntensity: 2.2  });
+    const matGlowG = new THREE.MeshStandardMaterial({ color: 0xffaa44, metalness: 0.1,  roughness: 0.1,  emissive: 0xffaa44, emissiveIntensity: 1.8  });
 
-    scene.add(new THREE.AmbientLight(0x5b1115, 1.25));
-    const keyLight = new THREE.PointLight(0xff2530, 36, 18);
-    keyLight.position.set(-3, 3, 5);
+    // Lights
+    scene.add(new THREE.AmbientLight(0x3a0a0e, 2.2));
+    const keyLight = new THREE.PointLight(0xff3030, 55, 22);
+    keyLight.position.set(-2, 3, 6);
     scene.add(keyLight);
-    const rimLight = new THREE.PointLight(0xffb08a, 13, 12);
-    rimLight.position.set(4, -2, 4);
+    const fillLight = new THREE.PointLight(0x7b1fa2, 18, 14);
+    fillLight.position.set(5, -1, 4);
+    scene.add(fillLight);
+    const rimLight = new THREE.PointLight(0xff9944, 22, 12);
+    rimLight.position.set(0, -4, 3);
     scene.add(rimLight);
 
     function addMesh(group, geometry, material, position, rotation, scale = 1) {
@@ -1770,88 +1779,91 @@
       return mesh;
     }
 
-    function makePendant() {
+    // 1 — Torus Knot: elegant, complex, mystical
+    function makeTorusKnot() {
       const group = new THREE.Group();
-      addMesh(group, new THREE.TorusGeometry(0.55, 0.045, 20, 80), red, [0, 0.02, 0], [Math.PI / 2, 0, 0]);
-      addMesh(group, new THREE.OctahedronGeometry(0.42, 1), dark, [0, -0.08, 0], [0.2, 0.6, 0.2], 1.2);
-      addMesh(group, new THREE.SphereGeometry(0.09, 24, 16), glow, [0, -0.08, 0.48], [0, 0, 0]);
-      addMesh(group, new THREE.CylinderGeometry(0.012, 0.012, 1.35, 8), red, [0, 0.86, 0], [0, 0, 0]);
+      addMesh(group, new THREE.TorusKnotGeometry(0.46, 0.13, 160, 20, 2, 3), matRed,  [0, 0, 0], [0, 0, 0]);
+      addMesh(group, new THREE.SphereGeometry(0.09, 20, 14), matGlow, [0, 0, 0], [0, 0, 0]);
       return group;
     }
 
-    function makeGoatHead() {
+    // 2 — Ringed Gem: icosahedron with two orbital rings
+    function makeRingedGem() {
       const group = new THREE.Group();
-      addMesh(group, new THREE.SphereGeometry(0.55, 36, 24), bone, [0, 0, 0], [0, 0, 0], 1);
-      addMesh(group, new THREE.SphereGeometry(0.24, 24, 16), bone, [0, -0.46, 0.2], [0, 0, 0], 1);
-      addMesh(group, new THREE.ConeGeometry(0.12, 0.85, 20), bone, [-0.48, 0.52, 0], [0.2, 0.15, 0.55]);
-      addMesh(group, new THREE.ConeGeometry(0.12, 0.85, 20), bone, [0.48, 0.52, 0], [0.2, -0.15, -0.55]);
-      addMesh(group, new THREE.SphereGeometry(0.045, 16, 12), glow, [-0.2, 0.06, 0.5], [0, 0, 0]);
-      addMesh(group, new THREE.SphereGeometry(0.045, 16, 12), glow, [0.2, 0.06, 0.5], [0, 0, 0]);
-      addMesh(group, new THREE.CylinderGeometry(0.01, 0.01, 1.1, 8), red, [0, 0.96, 0], [0, 0, 0]);
+      addMesh(group, new THREE.IcosahedronGeometry(0.44, 1), matBone, [0, 0, 0], [0, 0, 0]);
+      addMesh(group, new THREE.TorusGeometry(0.72, 0.025, 16, 80), matRed,  [0, 0, 0], [Math.PI / 2, 0, 0]);
+      addMesh(group, new THREE.TorusGeometry(0.72, 0.018, 16, 80), matGold, [0, 0, 0], [Math.PI / 3, 0.4, 0]);
+      addMesh(group, new THREE.SphereGeometry(0.07, 16, 12), matGlow,  [0.72, 0, 0], [0, 0, 0]);
+      addMesh(group, new THREE.SphereGeometry(0.05, 16, 12), matGlowG, [0, 0.72, 0], [0, 0, 0]);
       return group;
     }
 
-    function makeVoodooDoll() {
+    // 3 — Mystic Orb: dark sphere with three crossing rings
+    function makeMysticOrb() {
       const group = new THREE.Group();
-      addMesh(group, new THREE.SphereGeometry(0.29, 28, 18), thread, [0, 0.48, 0], [0, 0, 0]);
-      addMesh(group, new THREE.CapsuleGeometry(0.28, 0.55, 8, 18), thread, [0, -0.1, 0], [0, 0, 0]);
-      addMesh(group, new THREE.CapsuleGeometry(0.09, 0.48, 6, 12), thread, [-0.42, 0.02, 0], [0, 0, 0.58]);
-      addMesh(group, new THREE.CapsuleGeometry(0.09, 0.48, 6, 12), thread, [0.42, 0.02, 0], [0, 0, -0.58]);
-      addMesh(group, new THREE.CapsuleGeometry(0.1, 0.42, 6, 12), thread, [-0.16, -0.72, 0], [0, 0, 0.16]);
-      addMesh(group, new THREE.CapsuleGeometry(0.1, 0.42, 6, 12), thread, [0.16, -0.72, 0], [0, 0, -0.16]);
-      addMesh(group, new THREE.SphereGeometry(0.045, 12, 8), glow, [-0.1, 0.51, 0.25], [0, 0, 0]);
-      addMesh(group, new THREE.SphereGeometry(0.045, 12, 8), glow, [0.1, 0.51, 0.25], [0, 0, 0]);
-      addMesh(group, new THREE.CylinderGeometry(0.012, 0.012, 1.2, 8), red, [0, 1.12, 0], [0, 0, 0]);
+      addMesh(group, new THREE.SphereGeometry(0.38, 40, 28), matDark, [0, 0, 0], [0, 0, 0]);
+      addMesh(group, new THREE.TorusGeometry(0.60, 0.022, 16, 80), matRed,  [0, 0, 0], [Math.PI / 2, 0, 0]);
+      addMesh(group, new THREE.TorusGeometry(0.60, 0.016, 16, 80), matGold, [0, 0, 0], [0, 0, 0]);
+      addMesh(group, new THREE.TorusGeometry(0.60, 0.014, 16, 80), matRed,  [0, 0, 0], [Math.PI / 4, Math.PI / 4, 0]);
+      addMesh(group, new THREE.SphereGeometry(0.11, 20, 16), matGlow, [0, 0, 0], [0, 0, 0]);
+      return group;
+    }
+
+    // 4 — Crystal Cluster: pointed gem with satellites
+    function makeCrystalCluster() {
+      const group = new THREE.Group();
+      addMesh(group, new THREE.OctahedronGeometry(0.42, 0), matGold, [0, 0, 0], [0, 0, 0]);
+      [[0.58, 0.3, 0], [-0.58, -0.3, 0], [0, 0.62, 0.1], [0, -0.52, -0.1]].forEach(pos => {
+        addMesh(group, new THREE.OctahedronGeometry(0.14, 0), matRed, pos, [0.4, 0.2, 0.6], 1);
+      });
+      addMesh(group, new THREE.SphereGeometry(0.08, 16, 12), matGlow, [0, 0, 0], [0, 0, 0]);
       return group;
     }
 
     const objects = [
-      { mesh: makePendant(), base: new THREE.Vector3(-3.3, 1.6, -1.1), speed: 0.52, depth: 0.9 },
-      { mesh: makeGoatHead(), base: new THREE.Vector3(3.15, 0.62, -1.25), speed: 0.36, depth: 1.2 },
-      { mesh: makeVoodooDoll(), base: new THREE.Vector3(-2.55, -2.0, -0.75), speed: 0.44, depth: 0.7 },
-      { mesh: makePendant(), base: new THREE.Vector3(2.05, 2.18, -1.65), speed: 0.62, depth: 1.4 }
+      { mesh: makeTorusKnot(),     base: new THREE.Vector3(-3.2,  1.7, -1.0), speed: 0.38, floatA: 0.22, floatB: 0.10, phase: 0.0  },
+      { mesh: makeRingedGem(),     base: new THREE.Vector3( 3.1,  0.5, -1.2), speed: 0.28, floatA: 0.18, floatB: 0.12, phase: 1.4  },
+      { mesh: makeMysticOrb(),     base: new THREE.Vector3(-2.4, -2.0, -0.8), speed: 0.33, floatA: 0.20, floatB: 0.08, phase: 2.8  },
+      { mesh: makeCrystalCluster(),base: new THREE.Vector3( 2.0,  2.1, -1.5), speed: 0.45, floatA: 0.16, floatB: 0.14, phase: 4.2  },
     ];
 
-    objects.forEach((item) => scene.add(item.mesh));
+    objects.forEach(o => scene.add(o.mesh));
 
-    let mouseX = 0;
-    let mouseY = 0;
     let scrollRatio = 0;
-
-    function resizeRitualScene() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-    }
-
-    window.addEventListener("pointermove", (event) => {
-      mouseX = event.clientX / window.innerWidth - 0.5;
-      mouseY = event.clientY / window.innerHeight - 0.5;
-    }, { passive: true });
-
     window.addEventListener("scroll", () => {
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       scrollRatio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
     }, { passive: true });
 
+    function resizeRitualScene() {
+      const w = window.innerWidth, h = window.innerHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
     window.addEventListener("resize", resizeRitualScene);
     resizeRitualScene();
 
     function animateRitualScene(time) {
       const t = time * 0.001;
-      objects.forEach((item, index) => {
-        const drift = Math.sin(t * item.speed + index) * 0.16;
+
+      // Slowly orbit the key light for dynamic shadows
+      keyLight.position.x = Math.cos(t * 0.18) * 4.5;
+      keyLight.position.z = Math.sin(t * 0.18) * 5.5 + 2;
+
+      objects.forEach((item, i) => {
+        const floatY = Math.sin(t * item.speed + item.phase) * item.floatA;
+        const floatX = Math.cos(t * item.speed * 0.65 + item.phase) * item.floatB;
         item.mesh.position.set(
-          item.base.x + mouseX * (0.85 + item.depth * 0.2),
-          item.base.y - scrollRatio * (1.35 + item.depth) - mouseY * 0.55 + drift,
+          item.base.x + floatX,
+          item.base.y + floatY - scrollRatio * (1.2 + i * 0.3),
           item.base.z
         );
-        item.mesh.rotation.x = mouseY * 0.75 + Math.sin(t * item.speed) * 0.22;
-        item.mesh.rotation.y = mouseX * 1.1 + t * (0.22 + index * 0.035);
-        item.mesh.rotation.z = Math.sin(t * 0.6 + index) * 0.13 + scrollRatio * (0.8 + index * 0.15);
+        item.mesh.rotation.x += 0.004 + i * 0.0008;
+        item.mesh.rotation.y += 0.006 + i * 0.0012;
+        item.mesh.rotation.z += 0.002 + i * 0.0005;
       });
+
       renderer.render(scene, camera);
       requestAnimationFrame(animateRitualScene);
     }
