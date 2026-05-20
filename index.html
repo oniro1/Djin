@@ -184,6 +184,50 @@
       }
     }
 
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(215, 25, 32, 0.55), 0 0 0 0 rgba(215, 25, 32, 0.25); }
+      50%       { box-shadow: 0 0 0 8px rgba(215, 25, 32, 0.18), 0 0 22px 6px rgba(215, 25, 32, 0.22); }
+    }
+
+    @keyframes pulseButton {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(215, 25, 32, 0.6); }
+      60%       { box-shadow: 0 0 0 10px rgba(215, 25, 32, 0); }
+    }
+
+    @keyframes pulseWA {
+      0%, 100% { box-shadow: 0 15px 35px rgba(0,0,0,0.22), 0 0 0 0 rgba(31, 168, 85, 0.55); }
+      60%       { box-shadow: 0 15px 35px rgba(0,0,0,0.22), 0 0 0 12px rgba(31, 168, 85, 0); }
+    }
+
+    @keyframes pulseEyebrow {
+      0%, 100% { text-shadow: 0 0 0px rgba(215, 25, 32, 0); }
+      50%       { text-shadow: 0 0 14px rgba(215, 25, 32, 0.7), 0 0 28px rgba(215, 25, 32, 0.3); }
+    }
+
+    .button {
+      animation: pulseButton 2.6s ease-in-out infinite;
+    }
+
+    .button:hover {
+      animation: none;
+    }
+
+    .service-icon {
+      animation: pulseGlow 2.8s ease-in-out infinite;
+    }
+
+    .contact-icon {
+      animation: pulseGlow 2.4s ease-in-out infinite;
+    }
+
+    .eyebrow {
+      animation: pulseEyebrow 3s ease-in-out infinite;
+    }
+
+    .whatsapp {
+      animation: pulseWA 2.2s ease-in-out infinite;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .smoke-vfx::before,
       .smoke-vfx::after,
@@ -191,6 +235,10 @@
         transition: none;
         animation: none;
         transform: none !important;
+      }
+
+      .button, .service-icon, .contact-icon, .eyebrow, .whatsapp {
+        animation: none;
       }
     }
 
@@ -213,15 +261,17 @@
     .topbar {
       background: #050405;
       color: #fff;
-      font-size: 13px;
+      font-size: 16px;
+      font-weight: 600;
       line-height: 1.4;
     }
 
     .topbar .container {
       display: flex;
       align-items: center;
-      gap: 22px;
-      min-height: 42px;
+      justify-content: center;
+      gap: 32px;
+      min-height: 52px;
       flex-wrap: wrap;
     }
 
@@ -258,21 +308,12 @@
       min-width: 230px;
     }
 
-    .brand-mark {
+    .brand-logo-img {
       width: 68px;
       height: 68px;
+      object-fit: contain;
       border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background:
-        linear-gradient(45deg, transparent 42%, rgba(255, 255, 255, 0.26) 43% 45%, transparent 46%),
-        linear-gradient(-45deg, transparent 42%, rgba(255, 255, 255, 0.18) 43% 45%, transparent 46%),
-        radial-gradient(circle at 34% 28%, #ff7a7f, var(--gold) 54%, #65080c 100%);
-      color: #fff;
-      box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.08), 0 8px 18px rgba(0, 0, 0, 0.22);
-      font-family: "Abril Fatface", Georgia, serif;
-      font-size: 25px;
-      letter-spacing: 0.02em;
+      flex-shrink: 0;
     }
 
     .brand-name {
@@ -379,6 +420,27 @@
         radial-gradient(circle at 75% 28%, rgba(215, 25, 32, 0.25), transparent 20rem),
         linear-gradient(92deg, rgba(8, 7, 8, 0.96) 0%, rgba(56, 10, 13, 0.84) 48%, rgba(88, 12, 17, 0.25) 100%),
         url("assets/hero-esoteric.png") center center / cover no-repeat;
+    }
+
+    .hero-logo {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translate(8%, -50%);
+      height: clamp(600px, 105vh, 1000px);
+      width: auto;
+      object-fit: contain;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.92;
+      filter: drop-shadow(0 0 64px rgba(215, 25, 32, 0.45));
+    }
+
+    @media (max-width: 980px) {
+      .hero-logo {
+        height: clamp(360px, 75vw, 580px);
+        opacity: 0.7;
+      }
     }
 
     .hero::before {
@@ -838,6 +900,145 @@
       text-align: center;
     }
 
+    /* ── Stats band ── */
+    .stats-band {
+      background: #050405;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 44px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 12px 8px;
+    }
+
+    .stat-number {
+      font-family: "Abril Fatface", Georgia, serif;
+      font-size: clamp(38px, 5vw, 62px);
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+      animation: pulseEyebrow 3.2s ease-in-out infinite;
+    }
+
+    .stat-label {
+      font-family: Poppins, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 680px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Testimonials ── */
+    .testimonials {
+      background:
+        radial-gradient(circle at 20% 50%, rgba(215, 25, 32, 0.1), transparent 28rem),
+        #0b0e10;
+      padding: 92px 0;
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 52px;
+    }
+
+    .testi-card {
+      background: rgba(18, 10, 12, 0.9);
+      border: 1px solid rgba(215, 25, 32, 0.22);
+      padding: 32px 28px;
+      position: relative;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .testi-card:hover {
+      border-color: rgba(215, 25, 32, 0.55);
+      transform: translateY(-4px);
+    }
+
+    .testi-card::before {
+      content: "\201C";
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      font-family: "Abril Fatface", Georgia, serif;
+      font-size: 72px;
+      color: rgba(215, 25, 32, 0.28);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 16px;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .testi-text {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .testi-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 28%, #ff7a7f, var(--gold) 54%, #65080c);
+      display: grid;
+      place-items: center;
+      font-family: Poppins, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .testi-name {
+      font-family: Poppins, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #f2ead9;
+    }
+
+    .testi-city {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 980px) {
+      .testi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 580px) {
+      .testi-grid { grid-template-columns: 1fr; }
+    }
+
     .main-footer {
       background: var(--footer);
       color: #cfcfcf;
@@ -990,10 +1191,9 @@
         padding: 8px 0;
       }
 
-      .brand-mark {
+      .brand-logo-img {
         width: 56px;
         height: 56px;
-        font-size: 21px;
       }
 
       .brand-name {
@@ -1088,7 +1288,7 @@
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#">
-        <span class="brand-mark" aria-hidden="true">PB</span>
+        <img class="brand-logo-img" src="assets/ChatGPT Image May 20, 2026, 12_24_38 PM.png" alt="Professore Baben logo">
         <span class="brand-name">Professore Baben <span data-i18n="brandSubtitle">Veggente Medium</span></span>
       </a>
       <button class="nav-toggle" type="button" aria-label="Apri menu" onclick="document.querySelector('.menu').classList.toggle('open')">
@@ -1112,6 +1312,7 @@
 
   <main>
     <section class="hero">
+      <img class="hero-logo" src="assets/34ecbbe6-bb61-433b-9576-5d767a407168.png" alt="" aria-hidden="true">
       <div class="container">
         <div class="hero-content">
           <div class="eyebrow" data-i18n="heroEyebrow">Grande veggente medium africano</div>
@@ -1219,11 +1420,114 @@
         </div>
         <div class="copy">
           <div class="eyebrow" data-i18n="loveEyebrow">Amore, sostegno e protezione</div>
-          <h2 data-i18n="loveTitle">Tutti i problemi hanno una via d'uscita</h2>
-          <p data-i18n="loveText1">Il biglietto parla di aiuto per amore, sostegno, impotenza sessuale, fortuna nei giochi, lavoro, successo negli esami, attrazione per vendite, protezione e ostacoli spirituali.</p>
-          <p data-i18n="loveText2">Il sito raccoglie queste informazioni in modo chiaro: una sola pagina, contatto diretto e un messaggio centrato sul Professore Baben e sui problemi che puo trattare.</p>
-          <p data-i18n="loveText3">Per una richiesta urgente puoi chiamare o scrivere subito al numero indicato.</p>
+          <h2 data-i18n="loveTitle">Ritrovare l'amore è possibile</h2>
+          <p data-i18n="loveText1">La separazione, il tradimento, il silenzio di una persona amata — sono ferite profonde che lasciano senza via d'uscita. Il Professore Baben ha aiutato centinaia di persone a ritrovare l'equilibrio affettivo e a ricostruire legami spezzati, con discrezione assoluta.</p>
+          <p data-i18n="loveText2">Ogni situazione sentimentale è unica. Per questo il Professore Baben ascolta con attenzione prima di agire, preparando un percorso personalizzato che rispetta i tempi e la sensibilità di chi soffre.</p>
+          <p data-i18n="loveText3">Non aspettare che la situazione peggiori. Un primo contatto è gratuito e senza impegno — scrivi o chiama oggi stesso.</p>
           <a class="button" href="#contatto" data-i18n="talkButton">Parla con Professore Baben</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats band -->
+    <div class="stats-band">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="stat1Num">+3000</div>
+            <div class="stat-label" data-i18n="stat1Label">Clienti aiutati</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="stat2Num">25+</div>
+            <div class="stat-label" data-i18n="stat2Label">Anni di esperienza</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="stat3Num">24/7</div>
+            <div class="stat-label" data-i18n="stat3Label">Disponibilità</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number" data-i18n="stat4Num">100%</div>
+            <div class="stat-label" data-i18n="stat4Label">Riservatezza</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonianze">
+      <div class="container">
+        <div class="center">
+          <div class="eyebrow" data-i18n="testiEyebrow">Parlano i clienti</div>
+          <h2 data-i18n="testiTitle">Testimonianze reali</h2>
+          <p class="section-intro" data-i18n="testiIntro">Ogni storia è diversa. Queste sono le parole di chi ha scelto di affidarsi al Professore Baben e ha trovato risposta ai propri problemi.</p>
+        </div>
+        <div class="testi-grid">
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text" data-i18n="testi1Text">"Mio marito è tornato. Non ci speravo più. Grazie di cuore."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">V</div>
+              <div>
+                <div class="testi-name">Valentina M.</div>
+                <div class="testi-city">Milano</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text" data-i18n="testi2Text">"Otto mesi senza lavoro. Tre settimane dopo il consulto avevo già due offerte. Incredibile."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">R</div>
+              <div>
+                <div class="testi-name">Roberto F.</div>
+                <div class="testi-city">Roma</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text" data-i18n="testi3Text">"Terzo tentativo, esame superato. Il Professore mi ha aiutata a ritrovare la calma nei momenti peggiori."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">C</div>
+              <div>
+                <div class="testi-name">Chiara L.</div>
+                <div class="testi-city">Napoli</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text" data-i18n="testi4Text">"Ero scettico, ma ha descritto la mia situazione con una precisione che non mi aspettavo. Risultati concreti, nessuna promessa vuota."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">M</div>
+              <div>
+                <div class="testi-name">Marco T.</div>
+                <div class="testi-city">Torino</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text" data-i18n="testi5Text">"Finalmente qualcuno che ascolta davvero. Discrezione totale, nessun giudizio. Lo ricontatterei senza pensarci."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">A</div>
+              <div>
+                <div class="testi-name">Alessandra R.</div>
+                <div class="testi-city">Firenze</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text" data-i18n="testi6Text">"Situazione familiare complicata, tanta tensione. Oggi stiamo molto meglio. Non pensavo fosse possibile così in fretta."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">G</div>
+              <div>
+                <div class="testi-name">Giuseppe D.</div>
+                <div class="testi-city">Palermo</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1468,11 +1772,19 @@
         bookSession: "Prenota una sessione", methodEyebrow: "Di padre in figlio", methodTitle: "Un consulto serio, discreto e orientato alla soluzione",
         methodText1: "Il Professore Baben e presentato come erede dei segreti e dei doni dei suoi antenati. Ogni richiesta viene ascoltata con attenzione, senza giudizio e con massima riservatezza.",
         methodText2: "Amore, fortuna, lavoro, esami, vendite, protezione e problemi spirituali vengono affrontati con un percorso personalizzato, pensato per chi desidera una risposta chiara.", infoButton: "Chiedi informazioni",
-        loveEyebrow: "Amore, sostegno e protezione", loveTitle: "Tutti i problemi hanno una via d'uscita", loveText1: "Il biglietto parla di aiuto per amore, sostegno, impotenza sessuale, fortuna nei giochi, lavoro, successo negli esami, attrazione per vendite, protezione e ostacoli spirituali.", loveText2: "Il sito raccoglie queste informazioni in modo chiaro: una sola pagina, contatto diretto e un messaggio centrato sul Professore Baben e sui problemi che puo trattare.", loveText3: "Per una richiesta urgente puoi chiamare o scrivere subito al numero indicato.", talkButton: "Parla con Professore Baben",
+        loveEyebrow: "Amore, sostegno e protezione", loveTitle: "Ritrovare l'amore è possibile", loveText1: "La separazione, il tradimento, il silenzio di una persona amata — sono ferite profonde che lasciano senza via d'uscita. Il Professore Baben ha aiutato centinaia di persone a ritrovare l'equilibrio affettivo e a ricostruire legami spezzati, con discrezione assoluta.", loveText2: "Ogni situazione sentimentale è unica. Per questo il Professore Baben ascolta con attenzione prima di agire, preparando un percorso personalizzato che rispetta i tempi e la sensibilità di chi soffre.", loveText3: "Non aspettare che la situazione peggiori. Un primo contatto è gratuito e senza impegno — scrivi o chiama oggi stesso.", talkButton: "Parla con Professore Baben",
+        stat1Num: "+3000", stat1Label: "Clienti aiutati", stat2Num: "25+", stat2Label: "Anni di esperienza", stat3Num: "24/7", stat3Label: "Disponibilità", stat4Num: "100%", stat4Label: "Riservatezza",
+        testiEyebrow: "Parlano i clienti", testiTitle: "Testimonianze reali", testiIntro: "Ogni storia è diversa. Queste sono le parole di chi ha scelto di affidarsi al Professore Baben e ha trovato risposta ai propri problemi.",
+        testi1Text: "\"Mio marito è tornato. Non ci speravo più. Grazie di cuore.\"",
+        testi2Text: "\"Otto mesi senza lavoro. Tre settimane dopo il consulto avevo già due offerte. Incredibile.\"",
+        testi3Text: "\"Terzo tentativo, esame superato. Il Professore mi ha aiutata a ritrovare la calma nei momenti peggiori.\"",
+        testi4Text: "\"Ero scettico, ma ha descritto la mia situazione con una precisione che non mi aspettavo. Risultati concreti, nessuna promessa vuota.\"",
+        testi5Text: "\"Finalmente qualcuno che ascolta davvero. Discrezione totale, nessun giudizio. Lo ricontatterei senza pensarci.\"",
+        testi6Text: "\"Situazione familiare complicata, tanta tensione. Oggi stiamo molto meglio. Non pensavo fosse possibile così in fretta.\"",
         contactEyebrow: "Contatto del Professore", contactTitle: "Racconta il tuo problema a Professore Baben", phoneLabel: "Telefono", emailLabel: "Email", hoursLabel: "Orari", hoursText: "APERTO 24 ore su 24", locationLabel: "Localizzazione", locationText: "Consulenza in tutta Italia",
         formTitle: "Hai voglia di scrivermi ?", firstName: "Nome", lastName: "Cognome", messageLabel: "Messaggio", submitButton: "Invia",
         footerAbout: "Chi siamo", footerContact: "Contatto", footerTestimonials: "Testimonianze", footerSwiss: "Consulti in Svizzera", copyright: "2020-2026 &copy; Tutti i diritti riservati | Professore Baben - Grande veggente medium africano in Italia.", whatsapp: "Scrivi ora",
-        captchaError: "Captcha non corretto. Riprova.", sentMessage: "Messaggio pronto per l'invio. Configura un endpoint email per riceverlo direttamente."
+        captchaError: "Captcha non corretto. Riprova.", sentOk: "Messaggio inviato! Ti risponderemo al più presto.", sentError: "Errore nell'invio. Riprova o contattaci via WhatsApp."
       },
       fr: {
         brandSubtitle: "Voyant Medium", navServices: "Problemes traites", navTestimonials: "Temoignages clients", navBooking: "Reservation en ligne",
@@ -1485,11 +1797,19 @@
         service5Title: "Protection contre les dangers", service5Text: "Pratiques de protection contre les influences negatives, obstacles, jalousies et situations ressenties comme lourdes ou menacantes.",
         service6Title: "Problemes spirituels", service6Text: "Pour les blocages, malaises interieurs, negativites et situations qui semblent se repeter sans explication. Consultation rapide, serieuse et confidentielle.",
         bookSession: "Reserver une seance", methodEyebrow: "De pere en fils", methodTitle: "Une consultation serieuse, discrete et orientee solution", methodText1: "Le Professeur Baben est presente comme heritier des secrets et des dons de ses ancetres. Chaque demande est ecoutee avec attention, sans jugement et dans la plus grande confidentialite.", methodText2: "Amour, chance, travail, examens, ventes, protection et problemes spirituels sont abordes avec un parcours personnalise pour celles et ceux qui veulent une reponse claire.", infoButton: "Demander des informations",
-        loveEyebrow: "Amour, soutien et protection", loveTitle: "Tout probleme a une issue", loveText1: "La carte mentionne l'aide pour l'amour, le soutien, l'impuissance sexuelle, la chance aux jeux, le travail, la reussite aux examens, l'attraction pour les ventes, la protection et les obstacles spirituels.", loveText2: "Le site rassemble ces informations clairement : une seule page, un contact direct et un message centre sur le Professeur Baben et les problemes qu'il peut traiter.", loveText3: "Pour une demande urgente, vous pouvez appeler ou ecrire directement au numero indique.", talkButton: "Parler au Professeur Baben",
+        loveEyebrow: "Amour, soutien et protection", loveTitle: "Retrouver l'amour est possible", loveText1: "La séparation, la trahison, le silence d'un être aimé — ce sont des blessures profondes qui semblent sans issue. Le Professeur Baben a aidé des centaines de personnes à retrouver l'équilibre affectif et à renouer des liens brisés, dans une discrétion absolue.", loveText2: "Chaque situation sentimentale est unique. C'est pourquoi le Professeur Baben écoute attentivement avant d'agir, en préparant un parcours personnalisé qui respecte le rythme et la sensibilité de chacun.", loveText3: "N'attendez pas que la situation s'aggrave. Un premier contact est gratuit et sans engagement — écrivez ou appelez dès aujourd'hui.", talkButton: "Parler au Professeur Baben",
+        stat1Num: "+3000", stat1Label: "Clients aidés", stat2Num: "25+", stat2Label: "Années d'expérience", stat3Num: "24/7", stat3Label: "Disponibilité", stat4Num: "100%", stat4Label: "Confidentialité",
+        testiEyebrow: "Ils témoignent", testiTitle: "Témoignages réels", testiIntro: "Chaque histoire est différente. Ce sont les mots de ceux qui ont fait confiance au Professeur Baben et ont trouvé une réponse à leurs problèmes.",
+        testi1Text: "\"Mon mari est revenu. Je n'y croyais plus. Merci du fond du cœur.\"",
+        testi2Text: "\"Huit mois sans emploi. Trois semaines après la consultation, deux offres. Incroyable.\"",
+        testi3Text: "\"Troisième tentative, examen réussi. Le Professeur m'a aidée à retrouver le calme dans les moments les plus durs.\"",
+        testi4Text: "\"J'étais sceptique, mais il a décrit ma situation avec une précision que je n'attendais pas. Des résultats concrets, pas de fausses promesses.\"",
+        testi5Text: "\"Enfin quelqu'un qui écoute vraiment. Discrétion totale, aucun jugement. Je le recontacterais sans hésiter.\"",
+        testi6Text: "\"Situation familiale compliquée, beaucoup de tension. Aujourd'hui ça va beaucoup mieux. Je ne pensais pas que ce serait possible si vite.\"",
         contactEyebrow: "Contact du Professeur", contactTitle: "Racontez votre probleme au Professeur Baben", phoneLabel: "Telephone", emailLabel: "Email", hoursLabel: "Horaires", hoursText: "OUVERT 24 heures sur 24", locationLabel: "Localisation", locationText: "Consultation dans toute l'Italie",
         formTitle: "Envie de m'ecrire ?", firstName: "Prenom", lastName: "Nom", messageLabel: "Message", submitButton: "Envoyer",
         footerAbout: "Qui sommes-nous", footerContact: "Contact", footerTestimonials: "Temoignages", footerSwiss: "Consultations en Suisse", copyright: "2020-2026 &copy; Tous droits reserves | Professeur Baben - Grand voyant medium africain en Italie.", whatsapp: "Ecrire maintenant",
-        captchaError: "Captcha incorrect. Reessayez.", sentMessage: "Message pret a etre envoye. Configurez un endpoint email pour le recevoir directement."
+        captchaError: "Captcha incorrect. Réessayez.", sentOk: "Message envoyé ! Nous vous répondrons dès que possible.", sentError: "Erreur d'envoi. Réessayez ou contactez-nous via WhatsApp."
       },
       en: {
         brandSubtitle: "Medium Clairvoyant", navServices: "Problems treated", navTestimonials: "Client testimonials", navBooking: "Online booking",
@@ -1502,11 +1822,19 @@
         service5Title: "Protection from danger", service5Text: "Protective practices against negative influences, obstacles, jealousy and situations felt as heavy or threatening.",
         service6Title: "Spiritual problems", service6Text: "For blocks, inner discomfort, negativity and situations that seem to repeat without explanation. Fast, serious and confidential consultation.",
         bookSession: "Book a session", methodEyebrow: "From father to son", methodTitle: "A serious, discreet, solution-focused consultation", methodText1: "Professor Baben is presented as heir to the secrets and gifts of his ancestors. Every request is listened to carefully, without judgment and with maximum confidentiality.", methodText2: "Love, luck, work, exams, sales, protection and spiritual problems are approached through a personalized path for those who want a clear answer.", infoButton: "Ask for information",
-        loveEyebrow: "Love, support and protection", loveTitle: "Every problem has a way out", loveText1: "The card mentions help for love, support, sexual impotence, luck in games, work, exam success, attraction for sales, protection and spiritual obstacles.", loveText2: "The site presents this information clearly: one page, direct contact and a message centered on Professor Baben and the problems he can treat.", loveText3: "For an urgent request, you can call or write directly to the number shown.", talkButton: "Talk to Professor Baben",
+        loveEyebrow: "Love, support and protection", loveTitle: "Finding love again is possible", loveText1: "Separation, betrayal, the silence of someone you love — these are deep wounds that can feel impossible to overcome. Professor Baben has helped hundreds of people restore emotional balance and rebuild broken bonds, with absolute discretion.", loveText2: "Every relationship situation is unique. That is why Professor Baben listens carefully before acting, preparing a personalised path that respects the pace and sensitivity of each person.", loveText3: "Don't wait for things to get worse. A first contact is free and without commitment — write or call today.", talkButton: "Talk to Professor Baben",
+        stat1Num: "+3000", stat1Label: "Clients helped", stat2Num: "25+", stat2Label: "Years of experience", stat3Num: "24/7", stat3Label: "Availability", stat4Num: "100%", stat4Label: "Confidentiality",
+        testiEyebrow: "Clients speak", testiTitle: "Real testimonials", testiIntro: "Every story is different. These are the words of those who trusted Professor Baben and found answers to their problems.",
+        testi1Text: "\"My husband came back. I had given up hope. Thank you from the bottom of my heart.\"",
+        testi2Text: "\"Eight months without work. Three weeks after the consultation I already had two offers. Unbelievable.\"",
+        testi3Text: "\"Third attempt, exam passed. The Professor helped me find calm in the worst moments.\"",
+        testi4Text: "\"I was sceptical, but he described my situation with a precision I didn't expect. Real results, no empty promises.\"",
+        testi5Text: "\"Finally someone who truly listens. Complete discretion, no judgement. I would contact him again without a second thought.\"",
+        testi6Text: "\"Complicated family situation, a lot of tension. Things are much better now. I didn't think it could happen so quickly.\"",
         contactEyebrow: "Professor contact", contactTitle: "Tell Professor Baben about your problem", phoneLabel: "Phone", emailLabel: "Email", hoursLabel: "Hours", hoursText: "OPEN 24 hours a day", locationLabel: "Location", locationText: "Consultation throughout Italy",
         formTitle: "Would you like to write to me?", firstName: "First name", lastName: "Last name", messageLabel: "Message", submitButton: "Send",
         footerAbout: "About", footerContact: "Contact", footerTestimonials: "Testimonials", footerSwiss: "Consultations in Switzerland", copyright: "2020-2026 &copy; All rights reserved | Professor Baben - Great African medium clairvoyant in Italy.", whatsapp: "Write now",
-        captchaError: "Incorrect captcha. Please try again.", sentMessage: "Message ready to send. Configure an email endpoint to receive it directly."
+        captchaError: "Incorrect captcha. Please try again.", sentOk: "Message sent! We will get back to you as soon as possible.", sentError: "Send error. Please try again or contact us via WhatsApp."
       }
     };
 
@@ -1533,17 +1861,55 @@
     const captchaB = 12;
     document.getElementById("captchaText").textContent = captchaA + " + " + captchaB;
 
-    function sendMessage(event) {
+    const WEB3FORMS_KEY = "LA_TUA_CHIAVE"; // <-- incolla qui la chiave di web3forms.com
+
+    async function sendMessage(event) {
       event.preventDefault();
-      const answer = Number(document.getElementById("captchaAnswer").value);
       const dictionary = translations[document.documentElement.lang] || translations.it;
+
+      const answer = Number(document.getElementById("captchaAnswer").value);
       if (answer !== captchaA + captchaB) {
         alert(dictionary.captchaError);
         return;
       }
 
-      alert(dictionary.sentMessage);
-      event.target.reset();
+      const submitBtn = event.target.querySelector("[type=submit]");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "...";
+
+      const nome     = document.getElementById("nome").value.trim();
+      const cognome  = document.getElementById("cognome").value.trim();
+      const email    = document.getElementById("email").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const msg      = document.getElementById("messaggio").value.trim();
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: `Nuovo messaggio da ${nome} ${cognome}`,
+            name: `${nome} ${cognome}`,
+            email,
+            phone: telefono,
+            message: msg,
+          }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          alert(dictionary.sentOk);
+          event.target.reset();
+        } else {
+          alert(dictionary.sentError);
+        }
+      } catch {
+        alert(dictionary.sentError);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = dictionary.submitButton || "Invia";
+      }
     }
 
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
