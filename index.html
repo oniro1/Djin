@@ -209,6 +209,34 @@
       color: var(--gold-dark);
     }
 
+    .language-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      border: 1px solid rgba(215, 25, 32, 0.28);
+      background: rgba(8, 7, 8, 0.52);
+    }
+
+    .language-switcher button {
+      min-width: 34px;
+      height: 32px;
+      border: 0;
+      background: transparent;
+      color: #d9caca;
+      font-family: Poppins, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .language-switcher button.active,
+    .language-switcher button:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
     .hero {
       position: relative;
       overflow: hidden;
@@ -799,6 +827,10 @@
         border-top: 1px solid var(--line);
       }
 
+      .language-switcher {
+        margin-left: auto;
+      }
+
       .hero {
         min-height: 560px;
         background-position: center;
@@ -919,7 +951,7 @@
     <div class="container nav">
       <a class="brand" href="#">
         <span class="brand-mark" aria-hidden="true">PB</span>
-        <span class="brand-name">Professore Baben <span>Veggente Medium</span></span>
+        <span class="brand-name">Professore Baben <span data-i18n="brandSubtitle">Veggente Medium</span></span>
       </a>
       <button class="nav-toggle" type="button" aria-label="Apri menu" onclick="document.querySelector('.menu').classList.toggle('open')">
         <span></span>
@@ -928,10 +960,15 @@
       </button>
       <ul class="menu">
         <li><a href="#">Professore Baben</a></li>
-        <li><a class="active" href="#servizi">Problemi trattati</a></li>
-        <li><a href="#testimonianze">Testimonianze dei clienti</a></li>
-        <li><a href="#contatto">Prenotazione online</a></li>
+        <li><a class="active" href="#servizi" data-i18n="navServices">Problemi trattati</a></li>
+        <li><a href="#testimonianze" data-i18n="navTestimonials">Testimonianze dei clienti</a></li>
+        <li><a href="#contatto" data-i18n="navBooking">Prenotazione online</a></li>
       </ul>
+      <div class="language-switcher" aria-label="Seleziona lingua">
+        <button type="button" data-lang="it" class="active">IT</button>
+        <button type="button" data-lang="fr">FR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
     </div>
   </header>
 
@@ -939,10 +976,10 @@
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <div class="eyebrow">Grande veggente medium africano</div>
-          <h1>Professore Baben, erede dei segreti dei suoi antenati</h1>
-          <p>Di padre in figlio, il Professore Baben mette la sua esperienza al servizio di chi cerca risposte rapide e riservate. Consulti per amore, fortuna, lavoro, successo negli esami, protezione contro i pericoli e scioglimento dei problemi spirituali.</p>
-          <a class="button" href="#contatto">Contatta ora</a>
+          <div class="eyebrow" data-i18n="heroEyebrow">Grande veggente medium africano</div>
+          <h1 data-i18n="heroTitle">Professore Baben, erede dei segreti dei suoi antenati</h1>
+          <p data-i18n="heroText">Di padre in figlio, il Professore Baben mette la sua esperienza al servizio di chi cerca risposte rapide e riservate. Consulti per amore, fortuna, lavoro, successo negli esami, protezione contro i pericoli e scioglimento dei problemi spirituali.</p>
+          <a class="button" href="#contatto" data-i18n="heroButton">Contatta ora</a>
         </div>
       </div>
     </section>
@@ -950,9 +987,9 @@
     <section class="section" id="servizi">
       <div class="container">
         <div class="center">
-          <div class="eyebrow">Risolvera i tuoi problemi</div>
-          <h2>Amore, fortuna, lavoro, esami e protezione</h2>
-          <p class="section-intro">Tutti i problemi hanno una soluzione. Il Professore Baben ascolta la tua situazione e prepara un consulto discreto per aiutarti a ritrovare stabilita, successo e protezione.</p>
+          <div class="eyebrow" data-i18n="servicesEyebrow">Risolvera i tuoi problemi</div>
+          <h2 data-i18n="servicesTitle">Amore, fortuna, lavoro, esami e protezione</h2>
+          <p class="section-intro" data-i18n="servicesIntro">Tutti i problemi hanno una soluzione. Il Professore Baben ascolta la tua situazione e prepara un consulto discreto per aiutarti a ritrovare stabilita, successo e protezione.</p>
         </div>
 
         <div class="service-lead">
@@ -964,54 +1001,54 @@
             <article class="service">
               <div class="service-icon">I</div>
               <div>
-                <h3>Amore e ritorno affettivo</h3>
-                <p>Aiuto per problemi sentimentali, incomprensioni, separazioni e riavvicinamenti. Un percorso riservato per chiarire il legame e riaprire il dialogo.</p>
-                <a class="text-link" href="#contatto">Prenota una sessione</a>
+                <h3 data-i18n="service1Title">Amore e ritorno affettivo</h3>
+                <p data-i18n="service1Text">Aiuto per problemi sentimentali, incomprensioni, separazioni e riavvicinamenti. Un percorso riservato per chiarire il legame e riaprire il dialogo.</p>
+                <a class="text-link" href="#contatto" data-i18n="bookSession">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
               <div class="service-icon">II</div>
               <div>
-                <h3>Fortuna nei giochi</h3>
-                <p>Consulto dedicato alla fortuna, alle energie favorevoli e ai momenti in cui senti il bisogno di sbloccare una fase difficile.</p>
-                <a class="text-link" href="#contatto">Prenota una sessione</a>
+                <h3 data-i18n="service2Title">Fortuna nei giochi</h3>
+                <p data-i18n="service2Text">Consulto dedicato alla fortuna, alle energie favorevoli e ai momenti in cui senti il bisogno di sbloccare una fase difficile.</p>
+                <a class="text-link" href="#contatto" data-i18n="bookSession">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
               <div class="service-icon">III</div>
               <div>
-                <h3>Lavoro e successo</h3>
-                <p>Supporto spirituale per lavoro, vendite, colloqui, affari e situazioni professionali bloccate. L'obiettivo e favorire sicurezza e riuscita.</p>
-                <a class="text-link" href="#contatto">Prenota una sessione</a>
+                <h3 data-i18n="service3Title">Lavoro e successo</h3>
+                <p data-i18n="service3Text">Supporto spirituale per lavoro, vendite, colloqui, affari e situazioni professionali bloccate. L'obiettivo e favorire sicurezza e riuscita.</p>
+                <a class="text-link" href="#contatto" data-i18n="bookSession">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
               <div class="service-icon">IV</div>
               <div>
-                <h3>Successo negli esami</h3>
-                <p>Per studenti e candidati che cercano concentrazione, fiducia e maggiore serenita prima di prove importanti o decisioni decisive.</p>
-                <a class="text-link" href="#contatto">Prenota una sessione</a>
+                <h3 data-i18n="service4Title">Successo negli esami</h3>
+                <p data-i18n="service4Text">Per studenti e candidati che cercano concentrazione, fiducia e maggiore serenita prima di prove importanti o decisioni decisive.</p>
+                <a class="text-link" href="#contatto" data-i18n="bookSession">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
               <div class="service-icon">V</div>
               <div>
-                <h3>Protezione dai pericoli</h3>
-                <p>Pratiche di protezione contro influenze negative, ostacoli, invidie e situazioni percepite come pesanti o minacciose.</p>
-                <a class="text-link" href="#contatto">Prenota una sessione</a>
+                <h3 data-i18n="service5Title">Protezione dai pericoli</h3>
+                <p data-i18n="service5Text">Pratiche di protezione contro influenze negative, ostacoli, invidie e situazioni percepite come pesanti o minacciose.</p>
+                <a class="text-link" href="#contatto" data-i18n="bookSession">Prenota una sessione</a>
               </div>
             </article>
 
             <article class="service">
               <div class="service-icon">VI</div>
               <div>
-                <h3>Problemi spirituali</h3>
-                <p>Per blocchi, malesseri interiori, negativita e situazioni che sembrano ripetersi senza spiegazione. Consulto rapido, serio e riservato.</p>
-                <a class="text-link" href="#contatto">Prenota una sessione</a>
+                <h3 data-i18n="service6Title">Problemi spirituali</h3>
+                <p data-i18n="service6Text">Per blocchi, malesseri interiori, negativita e situazioni che sembrano ripetersi senza spiegazione. Consulto rapido, serio e riservato.</p>
+                <a class="text-link" href="#contatto" data-i18n="bookSession">Prenota una sessione</a>
               </div>
             </article>
           </div>
@@ -1022,11 +1059,11 @@
     <section class="section transform">
       <div class="container">
         <div class="copy">
-          <div class="eyebrow">Di padre in figlio</div>
-          <h2>Un consulto serio, discreto e orientato alla soluzione</h2>
-          <p>Il Professore Baben e presentato come erede dei segreti e dei doni dei suoi antenati. Ogni richiesta viene ascoltata con attenzione, senza giudizio e con massima riservatezza.</p>
-          <p>Amore, fortuna, lavoro, esami, vendite, protezione e problemi spirituali vengono affrontati con un percorso personalizzato, pensato per chi desidera una risposta chiara.</p>
-          <a class="button outline" href="#contatto">Chiedi informazioni</a>
+          <div class="eyebrow" data-i18n="methodEyebrow">Di padre in figlio</div>
+          <h2 data-i18n="methodTitle">Un consulto serio, discreto e orientato alla soluzione</h2>
+          <p data-i18n="methodText1">Il Professore Baben e presentato come erede dei segreti e dei doni dei suoi antenati. Ogni richiesta viene ascoltata con attenzione, senza giudizio e con massima riservatezza.</p>
+          <p data-i18n="methodText2">Amore, fortuna, lavoro, esami, vendite, protezione e problemi spirituali vengono affrontati con un percorso personalizzato, pensato per chi desidera una risposta chiara.</p>
+          <a class="button outline" href="#contatto" data-i18n="infoButton">Chiedi informazioni</a>
         </div>
         <div class="image-stack" aria-label="Rituali e immagini spirituali">
           <img class="talisman" src="https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&w=700&q=80" alt="Candele per rituale spirituale">
@@ -1043,74 +1080,74 @@
           <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80" alt="Cuore e luce calda">
         </div>
         <div class="copy">
-          <div class="eyebrow">Amore, sostegno e protezione</div>
-          <h2>Tutti i problemi hanno una via d'uscita</h2>
-          <p>Il biglietto parla di aiuto per amore, sostegno, impotenza sessuale, fortuna nei giochi, lavoro, successo negli esami, attrazione per vendite, protezione e ostacoli spirituali.</p>
-          <p>Il sito raccoglie queste informazioni in modo chiaro: una sola pagina, contatto diretto e un messaggio centrato sul Professore Baben e sui problemi che puo trattare.</p>
-          <p>Per una richiesta urgente puoi chiamare o scrivere subito al numero indicato.</p>
-          <a class="button" href="#contatto">Parla con Professore Baben</a>
+          <div class="eyebrow" data-i18n="loveEyebrow">Amore, sostegno e protezione</div>
+          <h2 data-i18n="loveTitle">Tutti i problemi hanno una via d'uscita</h2>
+          <p data-i18n="loveText1">Il biglietto parla di aiuto per amore, sostegno, impotenza sessuale, fortuna nei giochi, lavoro, successo negli esami, attrazione per vendite, protezione e ostacoli spirituali.</p>
+          <p data-i18n="loveText2">Il sito raccoglie queste informazioni in modo chiaro: una sola pagina, contatto diretto e un messaggio centrato sul Professore Baben e sui problemi che puo trattare.</p>
+          <p data-i18n="loveText3">Per una richiesta urgente puoi chiamare o scrivere subito al numero indicato.</p>
+          <a class="button" href="#contatto" data-i18n="talkButton">Parla con Professore Baben</a>
         </div>
       </div>
     </section>
 
     <section class="contact" id="contatto">
       <div class="container">
-        <div class="eyebrow">Contatto del Professore</div>
-        <h2>Racconta il tuo problema a Professore Baben</h2>
+        <div class="eyebrow" data-i18n="contactEyebrow">Contatto del Professore</div>
+        <h2 data-i18n="contactTitle">Racconta il tuo problema a Professore Baben</h2>
         <div class="contact-grid">
           <div class="contact-list">
             <div class="contact-item">
               <div class="contact-icon">T</div>
               <div>
-                <h3>Telefono</h3>
+                <h3 data-i18n="phoneLabel">Telefono</h3>
                 <p><a href="tel:+393508399440">+39 350 839 9440</a></p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">@</div>
               <div>
-                <h3>Email</h3>
+                <h3 data-i18n="emailLabel">Email</h3>
                 <p><a href="mailto:Mada.dada77@yahoo.com">Mada.dada77@yahoo.com</a></p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">24</div>
               <div>
-                <h3>Orari</h3>
-                <p>APERTO 24 ore su 24</p>
+                <h3 data-i18n="hoursLabel">Orari</h3>
+                <p data-i18n="hoursText">APERTO 24 ore su 24</p>
               </div>
             </div>
             <div class="contact-item">
               <div class="contact-icon">IT</div>
               <div>
-                <h3>Localizzazione</h3>
-                <p>Consulenza in tutta Italia</p>
+                <h3 data-i18n="locationLabel">Localizzazione</h3>
+                <p data-i18n="locationText">Consulenza in tutta Italia</p>
               </div>
             </div>
           </div>
 
           <div class="form-card">
-            <h3>Hai voglia di scrivermi ?</h3>
+            <h3 data-i18n="formTitle">Hai voglia di scrivermi ?</h3>
             <form onsubmit="sendMessage(event)">
               <div class="form-grid">
                 <div class="field">
-                  <label for="nome">Nome</label>
+                  <label for="nome" data-i18n="firstName">Nome</label>
                   <input id="nome" name="nome" type="text" required>
                 </div>
                 <div class="field">
-                  <label for="cognome">Cognome</label>
+                  <label for="cognome" data-i18n="lastName">Cognome</label>
                   <input id="cognome" name="cognome" type="text">
                 </div>
                 <div class="field">
-                  <label for="email">Email</label>
+                  <label for="email" data-i18n="emailLabel">Email</label>
                   <input id="email" name="email" type="email" required>
                 </div>
                 <div class="field">
-                  <label for="telefono">Telefono</label>
+                  <label for="telefono" data-i18n="phoneLabel">Telefono</label>
                   <input id="telefono" name="telefono" type="tel">
                 </div>
                 <div class="field full">
-                  <label for="messaggio">Messaggio</label>
+                  <label for="messaggio" data-i18n="messageLabel">Messaggio</label>
                   <textarea id="messaggio" name="messaggio"></textarea>
                 </div>
               </div>
@@ -1118,7 +1155,7 @@
                 <span><strong id="captchaText">14 + 12</strong> =</span>
                 <input id="captchaAnswer" type="text" inputmode="numeric" aria-label="Risultato captcha">
               </div>
-              <button class="button" type="submit">Invia</button>
+              <button class="button" type="submit" data-i18n="submitButton">Invia</button>
             </form>
           </div>
         </div>
@@ -1132,11 +1169,11 @@
       <div class="container">
         <ul>
           <li><a href="#">Professore Baben</a></li>
-          <li><a href="#">Chi siamo</a></li>
-          <li><a href="#servizi">Problemi trattati</a></li>
-          <li><a href="#contatto">Contatto</a></li>
-          <li><a href="#testimonianze">Testimonianze</a></li>
-          <li><a href="#">Consulti in Svizzera</a></li>
+          <li><a href="#" data-i18n="footerAbout">Chi siamo</a></li>
+          <li><a href="#servizi" data-i18n="navServices">Problemi trattati</a></li>
+          <li><a href="#contatto" data-i18n="footerContact">Contatto</a></li>
+          <li><a href="#testimonianze" data-i18n="footerTestimonials">Testimonianze</a></li>
+          <li><a href="#" data-i18n="footerSwiss">Consulti in Svizzera</a></li>
         </ul>
       </div>
     </nav>
@@ -1147,14 +1184,89 @@
           <li><a href="#">X</a></li>
           <li><a href="#">Instagram</a></li>
         </ul>
-        <p>2020-2026 &copy; Tutti i diritti riservati | Professore Baben - Grande veggente medium africano in Italia.</p>
+        <p data-i18n="copyright">2020-2026 &copy; Tutti i diritti riservati | Professore Baben - Grande veggente medium africano in Italia.</p>
       </div>
     </div>
   </footer>
 
-  <a class="whatsapp" href="https://wa.me/393508399440">Scrivi ora</a>
+  <a class="whatsapp" href="https://wa.me/393508399440" data-i18n="whatsapp">Scrivi ora</a>
 
   <script>
+    const translations = {
+      it: {
+        brandSubtitle: "Veggente Medium", navServices: "Problemi trattati", navTestimonials: "Testimonianze dei clienti", navBooking: "Prenotazione online",
+        heroEyebrow: "Grande veggente medium africano", heroTitle: "Professore Baben, erede dei segreti dei suoi antenati", heroText: "Di padre in figlio, il Professore Baben mette la sua esperienza al servizio di chi cerca risposte rapide e riservate. Consulti per amore, fortuna, lavoro, successo negli esami, protezione contro i pericoli e scioglimento dei problemi spirituali.", heroButton: "Contatta ora",
+        servicesEyebrow: "Risolvera i tuoi problemi", servicesTitle: "Amore, fortuna, lavoro, esami e protezione", servicesIntro: "Tutti i problemi hanno una soluzione. Il Professore Baben ascolta la tua situazione e prepara un consulto discreto per aiutarti a ritrovare stabilita, successo e protezione.",
+        service1Title: "Amore e ritorno affettivo", service1Text: "Aiuto per problemi sentimentali, incomprensioni, separazioni e riavvicinamenti. Un percorso riservato per chiarire il legame e riaprire il dialogo.",
+        service2Title: "Fortuna nei giochi", service2Text: "Consulto dedicato alla fortuna, alle energie favorevoli e ai momenti in cui senti il bisogno di sbloccare una fase difficile.",
+        service3Title: "Lavoro e successo", service3Text: "Supporto spirituale per lavoro, vendite, colloqui, affari e situazioni professionali bloccate. L'obiettivo e favorire sicurezza e riuscita.",
+        service4Title: "Successo negli esami", service4Text: "Per studenti e candidati che cercano concentrazione, fiducia e maggiore serenita prima di prove importanti o decisioni decisive.",
+        service5Title: "Protezione dai pericoli", service5Text: "Pratiche di protezione contro influenze negative, ostacoli, invidie e situazioni percepite come pesanti o minacciose.",
+        service6Title: "Problemi spirituali", service6Text: "Per blocchi, malesseri interiori, negativita e situazioni che sembrano ripetersi senza spiegazione. Consulto rapido, serio e riservato.",
+        bookSession: "Prenota una sessione", methodEyebrow: "Di padre in figlio", methodTitle: "Un consulto serio, discreto e orientato alla soluzione",
+        methodText1: "Il Professore Baben e presentato come erede dei segreti e dei doni dei suoi antenati. Ogni richiesta viene ascoltata con attenzione, senza giudizio e con massima riservatezza.",
+        methodText2: "Amore, fortuna, lavoro, esami, vendite, protezione e problemi spirituali vengono affrontati con un percorso personalizzato, pensato per chi desidera una risposta chiara.", infoButton: "Chiedi informazioni",
+        loveEyebrow: "Amore, sostegno e protezione", loveTitle: "Tutti i problemi hanno una via d'uscita", loveText1: "Il biglietto parla di aiuto per amore, sostegno, impotenza sessuale, fortuna nei giochi, lavoro, successo negli esami, attrazione per vendite, protezione e ostacoli spirituali.", loveText2: "Il sito raccoglie queste informazioni in modo chiaro: una sola pagina, contatto diretto e un messaggio centrato sul Professore Baben e sui problemi che puo trattare.", loveText3: "Per una richiesta urgente puoi chiamare o scrivere subito al numero indicato.", talkButton: "Parla con Professore Baben",
+        contactEyebrow: "Contatto del Professore", contactTitle: "Racconta il tuo problema a Professore Baben", phoneLabel: "Telefono", emailLabel: "Email", hoursLabel: "Orari", hoursText: "APERTO 24 ore su 24", locationLabel: "Localizzazione", locationText: "Consulenza in tutta Italia",
+        formTitle: "Hai voglia di scrivermi ?", firstName: "Nome", lastName: "Cognome", messageLabel: "Messaggio", submitButton: "Invia",
+        footerAbout: "Chi siamo", footerContact: "Contatto", footerTestimonials: "Testimonianze", footerSwiss: "Consulti in Svizzera", copyright: "2020-2026 &copy; Tutti i diritti riservati | Professore Baben - Grande veggente medium africano in Italia.", whatsapp: "Scrivi ora",
+        captchaError: "Captcha non corretto. Riprova.", sentMessage: "Messaggio pronto per l'invio. Configura un endpoint email per riceverlo direttamente."
+      },
+      fr: {
+        brandSubtitle: "Voyant Medium", navServices: "Problemes traites", navTestimonials: "Temoignages clients", navBooking: "Reservation en ligne",
+        heroEyebrow: "Grand voyant medium africain", heroTitle: "Professeur Baben, heritier des secrets de ses ancetres", heroText: "De pere en fils, le Professeur Baben met son experience au service de celles et ceux qui cherchent des reponses rapides et confidentielles. Consultations pour l'amour, la chance, le travail, la reussite aux examens, la protection contre les dangers et les problemes spirituels.", heroButton: "Contacter maintenant",
+        servicesEyebrow: "Il resout vos problemes", servicesTitle: "Amour, chance, travail, examens et protection", servicesIntro: "Tout probleme a une solution. Le Professeur Baben ecoute votre situation et prepare une consultation discrete pour vous aider a retrouver stabilite, succes et protection.",
+        service1Title: "Amour et retour affectif", service1Text: "Aide pour les problemes sentimentaux, incomprehensions, separations et rapprochements. Un parcours confidentiel pour clarifier le lien et rouvrir le dialogue.",
+        service2Title: "Chance aux jeux", service2Text: "Consultation dediee a la chance, aux energies favorables et aux moments ou vous ressentez le besoin de debloquer une periode difficile.",
+        service3Title: "Travail et succes", service3Text: "Soutien spirituel pour le travail, les ventes, les entretiens, les affaires et les situations professionnelles bloquees. L'objectif est de favoriser assurance et reussite.",
+        service4Title: "Reussite aux examens", service4Text: "Pour les etudiants et candidats qui recherchent concentration, confiance et serenite avant des epreuves importantes.",
+        service5Title: "Protection contre les dangers", service5Text: "Pratiques de protection contre les influences negatives, obstacles, jalousies et situations ressenties comme lourdes ou menacantes.",
+        service6Title: "Problemes spirituels", service6Text: "Pour les blocages, malaises interieurs, negativites et situations qui semblent se repeter sans explication. Consultation rapide, serieuse et confidentielle.",
+        bookSession: "Reserver une seance", methodEyebrow: "De pere en fils", methodTitle: "Une consultation serieuse, discrete et orientee solution", methodText1: "Le Professeur Baben est presente comme heritier des secrets et des dons de ses ancetres. Chaque demande est ecoutee avec attention, sans jugement et dans la plus grande confidentialite.", methodText2: "Amour, chance, travail, examens, ventes, protection et problemes spirituels sont abordes avec un parcours personnalise pour celles et ceux qui veulent une reponse claire.", infoButton: "Demander des informations",
+        loveEyebrow: "Amour, soutien et protection", loveTitle: "Tout probleme a une issue", loveText1: "La carte mentionne l'aide pour l'amour, le soutien, l'impuissance sexuelle, la chance aux jeux, le travail, la reussite aux examens, l'attraction pour les ventes, la protection et les obstacles spirituels.", loveText2: "Le site rassemble ces informations clairement : une seule page, un contact direct et un message centre sur le Professeur Baben et les problemes qu'il peut traiter.", loveText3: "Pour une demande urgente, vous pouvez appeler ou ecrire directement au numero indique.", talkButton: "Parler au Professeur Baben",
+        contactEyebrow: "Contact du Professeur", contactTitle: "Racontez votre probleme au Professeur Baben", phoneLabel: "Telephone", emailLabel: "Email", hoursLabel: "Horaires", hoursText: "OUVERT 24 heures sur 24", locationLabel: "Localisation", locationText: "Consultation dans toute l'Italie",
+        formTitle: "Envie de m'ecrire ?", firstName: "Prenom", lastName: "Nom", messageLabel: "Message", submitButton: "Envoyer",
+        footerAbout: "Qui sommes-nous", footerContact: "Contact", footerTestimonials: "Temoignages", footerSwiss: "Consultations en Suisse", copyright: "2020-2026 &copy; Tous droits reserves | Professeur Baben - Grand voyant medium africain en Italie.", whatsapp: "Ecrire maintenant",
+        captchaError: "Captcha incorrect. Reessayez.", sentMessage: "Message pret a etre envoye. Configurez un endpoint email pour le recevoir directement."
+      },
+      en: {
+        brandSubtitle: "Medium Clairvoyant", navServices: "Problems treated", navTestimonials: "Client testimonials", navBooking: "Online booking",
+        heroEyebrow: "Great African medium clairvoyant", heroTitle: "Professor Baben, heir to his ancestors' secrets", heroText: "From father to son, Professor Baben puts his experience at the service of people looking for quick and confidential answers. Consultations for love, luck, work, exam success, protection from danger, and spiritual problems.", heroButton: "Contact now",
+        servicesEyebrow: "He can help with your problems", servicesTitle: "Love, luck, work, exams and protection", servicesIntro: "Every problem has a solution. Professor Baben listens to your situation and prepares a discreet consultation to help you regain stability, success and protection.",
+        service1Title: "Love and emotional return", service1Text: "Help with sentimental problems, misunderstandings, separations and reconnections. A confidential path to clarify the bond and reopen dialogue.",
+        service2Title: "Luck in games", service2Text: "A consultation focused on luck, favorable energies and moments when you need to unlock a difficult phase.",
+        service3Title: "Work and success", service3Text: "Spiritual support for work, sales, interviews, business and blocked professional situations. The goal is to encourage confidence and success.",
+        service4Title: "Exam success", service4Text: "For students and candidates seeking concentration, confidence and calm before important tests or decisions.",
+        service5Title: "Protection from danger", service5Text: "Protective practices against negative influences, obstacles, jealousy and situations felt as heavy or threatening.",
+        service6Title: "Spiritual problems", service6Text: "For blocks, inner discomfort, negativity and situations that seem to repeat without explanation. Fast, serious and confidential consultation.",
+        bookSession: "Book a session", methodEyebrow: "From father to son", methodTitle: "A serious, discreet, solution-focused consultation", methodText1: "Professor Baben is presented as heir to the secrets and gifts of his ancestors. Every request is listened to carefully, without judgment and with maximum confidentiality.", methodText2: "Love, luck, work, exams, sales, protection and spiritual problems are approached through a personalized path for those who want a clear answer.", infoButton: "Ask for information",
+        loveEyebrow: "Love, support and protection", loveTitle: "Every problem has a way out", loveText1: "The card mentions help for love, support, sexual impotence, luck in games, work, exam success, attraction for sales, protection and spiritual obstacles.", loveText2: "The site presents this information clearly: one page, direct contact and a message centered on Professor Baben and the problems he can treat.", loveText3: "For an urgent request, you can call or write directly to the number shown.", talkButton: "Talk to Professor Baben",
+        contactEyebrow: "Professor contact", contactTitle: "Tell Professor Baben about your problem", phoneLabel: "Phone", emailLabel: "Email", hoursLabel: "Hours", hoursText: "OPEN 24 hours a day", locationLabel: "Location", locationText: "Consultation throughout Italy",
+        formTitle: "Would you like to write to me?", firstName: "First name", lastName: "Last name", messageLabel: "Message", submitButton: "Send",
+        footerAbout: "About", footerContact: "Contact", footerTestimonials: "Testimonials", footerSwiss: "Consultations in Switzerland", copyright: "2020-2026 &copy; All rights reserved | Professor Baben - Great African medium clairvoyant in Italy.", whatsapp: "Write now",
+        captchaError: "Incorrect captcha. Please try again.", sentMessage: "Message ready to send. Configure an email endpoint to receive it directly."
+      }
+    };
+
+    function setLanguage(lang) {
+      const dictionary = translations[lang] || translations.it;
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        const key = node.getAttribute("data-i18n");
+        if (dictionary[key]) node.innerHTML = dictionary[key];
+      });
+      document.querySelectorAll("[data-lang]").forEach((button) => {
+        button.classList.toggle("active", button.getAttribute("data-lang") === lang);
+      });
+      localStorage.setItem("siteLanguage", lang);
+    }
+
+    document.querySelectorAll("[data-lang]").forEach((button) => {
+      button.addEventListener("click", () => setLanguage(button.getAttribute("data-lang")));
+    });
+
+    setLanguage(localStorage.getItem("siteLanguage") || "it");
+
     const captchaA = 14;
     const captchaB = 12;
     document.getElementById("captchaText").textContent = captchaA + " + " + captchaB;
@@ -1162,12 +1274,13 @@
     function sendMessage(event) {
       event.preventDefault();
       const answer = Number(document.getElementById("captchaAnswer").value);
+      const dictionary = translations[document.documentElement.lang] || translations.it;
       if (answer !== captchaA + captchaB) {
-        alert("Captcha non corretto. Riprova.");
+        alert(dictionary.captchaError);
         return;
       }
 
-      alert("Messaggio pronto per l'invio. Configura un endpoint email per riceverlo direttamente.");
+      alert(dictionary.sentMessage);
       event.target.reset();
     }
 
