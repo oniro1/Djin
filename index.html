@@ -514,6 +514,32 @@
         url("assets/hero-esoteric.png") center center / cover no-repeat;
     }
 
+    /* Glow pulsante dietro le immagini */
+    @keyframes imgGlowPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 28px rgba(215, 25, 32, 0.35),
+          0 0 65px rgba(215, 25, 32, 0.15),
+          0 0 110px rgba(180, 15, 20, 0.08);
+      }
+      50% {
+        box-shadow:
+          0 0 55px rgba(215, 25, 32, 0.65),
+          0 0 110px rgba(215, 25, 32, 0.32),
+          0 0 170px rgba(255, 80, 40, 0.18);
+      }
+    }
+
+    .portrait-card img,
+    .image-stack img,
+    .love-media img {
+      animation: imgGlowPulse 3.4s ease-in-out infinite;
+    }
+
+    .image-stack .small-one { animation-delay: 0.6s; }
+    .image-stack .small-two { animation-delay: 1.2s; }
+    .love-media .short       { animation-delay: 0.9s; }
+
     @keyframes logoGlowPulse {
       0%, 100% {
         filter:
@@ -888,10 +914,15 @@
     }
 
     .image-stack .small-one {
-      width: 218px;
-      right: 0;
-      top: 66px;
-      z-index: 1;
+      width: 236px;
+      right: -10px;
+      top: 44px;
+      z-index: 4;
+      filter: saturate(0.92) contrast(1.1) brightness(0.9);
+      border: 1px solid rgba(215, 25, 32, 0.52);
+      box-shadow:
+        var(--shadow),
+        0 0 18px rgba(215, 25, 32, 0.22);
     }
 
     .image-stack .small-two {
@@ -1554,13 +1585,33 @@
         grid-template-columns: 1fr 1fr;
         gap: 12px;
       }
-      .image-stack img { position: static; width: 100% !important; height: 180px; object-fit: cover; }
-      .image-stack .talisman { grid-column: 1 / -1; height: 220px; }
+      .image-stack img {
+        position: static;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .image-stack .talisman {
+        grid-column: 1 / -1;
+        aspect-ratio: 16 / 9;
+        object-position: center center;
+      }
 
       /* Love section */
       .love-media { grid-template-columns: 1fr; gap: 12px; }
-      .love-media img,
-      .love-media .short { min-height: 220px; margin: 0; }
+      .love-media img {
+        height: auto !important;
+        aspect-ratio: 4 / 3;
+        min-height: unset;
+        object-position: center center;
+      }
+      .love-media .short {
+        aspect-ratio: 4 / 3;
+        min-height: unset;
+        margin: 0;
+      }
       .copy p { font-size: 15px; }
 
       /* Stats */
@@ -1601,8 +1652,8 @@
     @media (max-width: 400px) {
       .brand-name { display: none; }
       .image-stack { grid-template-columns: 1fr; }
-      .image-stack img { height: 200px; }
-      .image-stack .talisman { height: 200px; }
+      .image-stack img { aspect-ratio: 4 / 3; height: auto !important; }
+      .image-stack .talisman { aspect-ratio: 16 / 9; height: auto !important; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
@@ -1761,7 +1812,7 @@
         </div>
         <div class="image-stack" aria-label="Rituali e immagini spirituali">
           <img class="talisman" src="assets/david-brooke-martin-FD9jL29KD5E-unsplash.jpg" alt="Incenso rituale su sfondo nero">
-          <img class="small-one" src="assets/joanna-kosinska-CxmXVRG5R_k-unsplash.jpg" alt="Carte dei tarocchi">
+          <img class="small-one" src="assets/WhatsApp Image 2026-05-20 at 20.43.08.jpeg" alt="Immagine spirituale">
           <img class="small-two" src="assets/brooke-balentine-S-AkMAN80Vs-unsplash.jpg" alt="Cerchio di candele rituali">
         </div>
       </div>
