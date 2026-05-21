@@ -81,12 +81,12 @@
       left: 0;
       right: 0;
       bottom: 0;
-      z-index: 3;
-      height: 42vh;
+      z-index: 19;
+      height: 64vh;
       pointer-events: none;
       overflow: hidden;
-      opacity: 0.72;
-      filter: blur(0.2px);
+      opacity: 0.95;
+      filter: saturate(1.25) contrast(1.12);
     }
 
     .smoke-vfx::before,
@@ -95,15 +95,15 @@
       position: absolute;
       left: -12%;
       right: -12%;
-      bottom: -45%;
-      height: 150%;
+      bottom: -36%;
+      height: 164%;
       background:
-        radial-gradient(ellipse at 8% 82%, rgba(118, 20, 24, 0.35) 0 11%, transparent 28%),
-        radial-gradient(ellipse at 24% 92%, rgba(230, 218, 208, 0.16) 0 8%, transparent 25%),
-        radial-gradient(ellipse at 42% 86%, rgba(96, 16, 20, 0.38) 0 12%, transparent 30%),
-        radial-gradient(ellipse at 58% 94%, rgba(230, 218, 208, 0.13) 0 9%, transparent 27%),
-        radial-gradient(ellipse at 78% 84%, rgba(125, 18, 24, 0.36) 0 12%, transparent 30%),
-        radial-gradient(ellipse at 94% 94%, rgba(230, 218, 208, 0.13) 0 8%, transparent 25%);
+        radial-gradient(ellipse at 8% 82%, rgba(180, 24, 31, 0.48) 0 13%, transparent 31%),
+        radial-gradient(ellipse at 24% 92%, rgba(240, 228, 218, 0.27) 0 10%, transparent 27%),
+        radial-gradient(ellipse at 42% 86%, rgba(148, 20, 26, 0.52) 0 14%, transparent 32%),
+        radial-gradient(ellipse at 58% 94%, rgba(240, 228, 218, 0.22) 0 11%, transparent 29%),
+        radial-gradient(ellipse at 78% 84%, rgba(190, 23, 31, 0.5) 0 14%, transparent 32%),
+        radial-gradient(ellipse at 94% 94%, rgba(240, 228, 218, 0.22) 0 10%, transparent 27%);
       transform: translate3d(0, 0, 0);
       animation: smokeRise 18s ease-in-out infinite alternate;
       mix-blend-mode: screen;
@@ -114,7 +114,7 @@
       right: -24%;
       bottom: -52%;
       opacity: 0.58;
-      filter: blur(18px);
+      filter: blur(24px);
       animation-duration: 25s;
       animation-delay: -7s;
       transform: scaleX(1.16);
@@ -122,16 +122,16 @@
 
     .smoke-column {
       position: absolute;
-      bottom: -38%;
+      bottom: -30%;
       width: 28vw;
       min-width: 240px;
       height: 150%;
       border-radius: 50%;
       background:
-        radial-gradient(ellipse at 50% 88%, rgba(230, 218, 208, 0.16), transparent 35%),
-        radial-gradient(ellipse at 52% 64%, rgba(136, 22, 27, 0.22), transparent 42%),
-        radial-gradient(ellipse at 48% 38%, rgba(230, 218, 208, 0.08), transparent 45%);
-      filter: blur(22px);
+        radial-gradient(ellipse at 50% 88%, rgba(240, 228, 218, 0.28), transparent 35%),
+        radial-gradient(ellipse at 52% 64%, rgba(190, 22, 30, 0.38), transparent 42%),
+        radial-gradient(ellipse at 48% 38%, rgba(240, 228, 218, 0.14), transparent 45%);
+      filter: blur(26px);
       mix-blend-mode: screen;
       animation: smokeColumn 16s ease-in-out infinite;
       transform-origin: 50% 100%;
@@ -536,9 +536,10 @@
       animation: imgGlowPulse 3.4s ease-in-out infinite;
     }
 
-    .image-stack .small-one { animation-delay: 0.6s; }
-    .image-stack .small-two { animation-delay: 1.2s; }
-    .love-media .short       { animation-delay: 0.9s; }
+    .image-stack .small-one   { animation-delay: 0.6s; }
+    .image-stack .small-two   { animation-delay: 1.2s; }
+    .image-stack .small-three { animation-delay: 1.8s; }
+    .love-media .short        { animation-delay: 0.9s; }
 
     @keyframes logoGlowPulse {
       0%, 100% {
@@ -894,7 +895,7 @@
 
     .image-stack {
       position: relative;
-      min-height: 395px;
+      min-height: 440px;
     }
 
     .image-stack img {
@@ -930,6 +931,13 @@
       left: 58px;
       bottom: 0;
       z-index: 3;
+    }
+
+    .image-stack .small-three {
+      width: 200px;
+      right: 14px;
+      bottom: 10px;
+      z-index: 2;
     }
 
     .love {
@@ -1589,9 +1597,9 @@
         position: static;
         width: 100% !important;
         height: auto !important;
-        aspect-ratio: 3 / 4;
+        aspect-ratio: 1 / 1;
         object-fit: cover;
-        object-position: center top;
+        object-position: center center;
       }
       .image-stack .talisman {
         grid-column: 1 / -1;
@@ -1812,8 +1820,9 @@
         </div>
         <div class="image-stack" aria-label="Rituali e immagini spirituali">
           <img class="talisman" src="assets/david-brooke-martin-FD9jL29KD5E-unsplash.jpg" alt="Incenso rituale su sfondo nero">
-          <img class="small-one" src="assets/WhatsApp Image 2026-05-20 at 20.43.08.jpeg" alt="Immagine spirituale">
+          <img class="small-one" src="assets/WhatsApp Image 2026-05-20 at 20.43.08.jpeg" alt="Oggetti rituali">
           <img class="small-two" src="assets/brooke-balentine-S-AkMAN80Vs-unsplash.jpg" alt="Cerchio di candele rituali">
+          <img class="small-three" src="assets/ritual-cropped.jpg" alt="Rituale africano su telo rosso">
         </div>
       </div>
     </section>
@@ -2022,6 +2031,9 @@
           <li><a href="#contatto" data-i18n="footerContact">Contatto</a></li>
           <li><a href="#testimonianze" data-i18n="footerTestimonials">Testimonianze</a></li>
           <li><a href="#" data-i18n="footerSwiss">Consulti in Svizzera</a></li>
+          <li><a href="privacy-policy.html" data-i18n="footerPrivacy">Privacy Policy</a></li>
+          <li><a href="cookie-policy.html" data-i18n="footerCookie">Cookie Policy</a></li>
+          <li><a href="termini-e-condizioni.html" data-i18n="footerTerms">Termini e condizioni</a></li>
         </ul>
       </div>
     </nav>
@@ -2121,13 +2133,44 @@
     }
 
     const objects = [
-      { mesh: makeTorusKnot(),     base: new THREE.Vector3(-3.2,  1.7, -1.0), speed: 0.38, floatA: 0.22, floatB: 0.10, phase: 0.0  },
-      { mesh: makeRingedGem(),     base: new THREE.Vector3( 3.1,  0.5, -1.2), speed: 0.28, floatA: 0.18, floatB: 0.12, phase: 1.4  },
-      { mesh: makeMysticOrb(),     base: new THREE.Vector3(-2.4, -2.0, -0.8), speed: 0.33, floatA: 0.20, floatB: 0.08, phase: 2.8  },
-      { mesh: makeCrystalCluster(),base: new THREE.Vector3( 2.0,  2.1, -1.5), speed: 0.45, floatA: 0.16, floatB: 0.14, phase: 4.2  },
+      { mesh: makeTorusKnot(), selector: ".hero", anchorX: 0.88, anchorY: 0.42, z: -1.0, scale: 1.18, speed: 0.38, floatA: 0.12, floatB: 0.08, phase: 0.0 },
+      { mesh: makeRingedGem(), selector: "#servizi", anchorX: 0.10, anchorY: 0.34, z: -1.2, scale: 1.0, speed: 0.28, floatA: 0.10, floatB: 0.08, phase: 1.4 },
+      { mesh: makeMysticOrb(), selector: ".transform", anchorX: 0.86, anchorY: 0.50, z: -0.8, scale: 1.0, speed: 0.33, floatA: 0.11, floatB: 0.06, phase: 2.8 },
+      { mesh: makeCrystalCluster(), selector: ".love", anchorX: 0.16, anchorY: 0.48, z: -1.5, scale: 0.95, speed: 0.45, floatA: 0.10, floatB: 0.09, phase: 4.2 },
     ];
 
-    objects.forEach(o => scene.add(o.mesh));
+    objects.forEach(o => {
+      o.target = new THREE.Vector3();
+      o.mesh.scale.setScalar(o.scale);
+      scene.add(o.mesh);
+    });
+
+    const mouse = { x: 0, y: 0 };
+    let lastScrollY = window.scrollY;
+    let scrollImpulse = 0;
+
+    function viewportToWorld(clientX, clientY, z = -1) {
+      const ndc = new THREE.Vector3(
+        (clientX / window.innerWidth) * 2 - 1,
+        -(clientY / window.innerHeight) * 2 + 1,
+        0.5
+      );
+      ndc.unproject(camera);
+      const direction = ndc.sub(camera.position).normalize();
+      const distance = (z - camera.position.z) / direction.z;
+      return camera.position.clone().add(direction.multiplyScalar(distance));
+    }
+
+    function updateSectionAnchors() {
+      objects.forEach((item) => {
+        const section = document.querySelector(item.selector);
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const clientX = rect.left + rect.width * item.anchorX;
+        const clientY = rect.top + rect.height * item.anchorY;
+        item.target.copy(viewportToWorld(clientX, clientY, item.z));
+      });
+    }
 
 
     function resizeRitualScene() {
@@ -2135,8 +2178,20 @@
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      updateSectionAnchors();
     }
     window.addEventListener("resize", resizeRitualScene);
+    window.addEventListener("load", updateSectionAnchors);
+    window.addEventListener("pointermove", (event) => {
+      mouse.x = event.clientX / window.innerWidth - 0.5;
+      mouse.y = event.clientY / window.innerHeight - 0.5;
+    }, { passive: true });
+    window.addEventListener("scroll", () => {
+      const delta = window.scrollY - lastScrollY;
+      lastScrollY = window.scrollY;
+      scrollImpulse = THREE.MathUtils.clamp(scrollImpulse + delta / 70, -1.4, 1.4);
+      updateSectionAnchors();
+    }, { passive: true });
     resizeRitualScene();
 
     function animateRitualScene(time) {
@@ -2145,18 +2200,19 @@
       // Slowly orbit the key light for dynamic shadows
       keyLight.position.x = Math.cos(t * 0.18) * 4.5;
       keyLight.position.z = Math.sin(t * 0.18) * 5.5 + 2;
+      scrollImpulse *= 0.86;
 
       objects.forEach((item, i) => {
         const floatY = Math.sin(t * item.speed + item.phase) * item.floatA;
         const floatX = Math.cos(t * item.speed * 0.65 + item.phase) * item.floatB;
-        item.mesh.position.set(
-          item.base.x + floatX,
-          item.base.y + floatY,
-          item.base.z
-        );
-        item.mesh.rotation.x += 0.004 + i * 0.0008;
-        item.mesh.rotation.y += 0.006 + i * 0.0012;
-        item.mesh.rotation.z += 0.002 + i * 0.0005;
+        const twitch = Math.sin(t * 38 + i * 2.1) * scrollImpulse;
+        const targetX = item.target.x + floatX + mouse.x * 0.26 + twitch * (0.08 + i * 0.012);
+        const targetY = item.target.y + floatY - mouse.y * 0.18 + Math.cos(t * 31 + i) * scrollImpulse * 0.05;
+        const targetZ = item.target.z + Math.abs(scrollImpulse) * 0.12;
+        item.mesh.position.lerp(new THREE.Vector3(targetX, targetY, targetZ), 0.16);
+        item.mesh.rotation.x += 0.004 + i * 0.0008 + twitch * 0.015;
+        item.mesh.rotation.y += 0.006 + i * 0.0012 + scrollImpulse * 0.018;
+        item.mesh.rotation.z += 0.002 + i * 0.0005 + twitch * 0.012;
       });
 
       renderer.render(scene, camera);
@@ -2192,7 +2248,7 @@
         testi6Text: "\"Situazione familiare complicata, tanta tensione. Oggi stiamo molto meglio. Non pensavo fosse possibile così in fretta.\"",
         contactEyebrow: "Contatto del Professore", contactTitle: "Racconta il tuo problema a Professore Baben", phoneLabel: "Telefono", emailLabel: "Email", hoursLabel: "Orari", hoursText: "APERTO 24 ore su 24", locationLabel: "Localizzazione", locationText: "Consulenza in tutta Italia",
         formTitle: "Hai voglia di scrivermi ?", firstName: "Nome", lastName: "Cognome", messageLabel: "Messaggio", submitButton: "Invia",
-        footerAbout: "Chi siamo", footerContact: "Contatto", footerTestimonials: "Testimonianze", footerSwiss: "Consulti in Svizzera", copyright: "2020-2026 &copy; Tutti i diritti riservati | Professore Baben - Grande veggente medium africano in Italia.", whatsapp: "Scrivi ora",
+        footerAbout: "Chi siamo", footerContact: "Contatto", footerTestimonials: "Testimonianze", footerSwiss: "Consulti in Svizzera", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy", footerTerms: "Termini e condizioni", copyright: "2020-2026 &copy; Tutti i diritti riservati | Professore Baben - Grande veggente medium africano in Italia.", whatsapp: "Scrivi ora",
         captchaError: "Captcha non corretto. Riprova.", sentOk: "Messaggio inviato! Ti risponderemo al più presto.", sentError: "Errore nell'invio. Riprova o contattaci via WhatsApp."
       },
       fr: {
@@ -2217,7 +2273,7 @@
         testi6Text: "\"Situation familiale compliquée, beaucoup de tension. Aujourd'hui ça va beaucoup mieux. Je ne pensais pas que ce serait possible si vite.\"",
         contactEyebrow: "Contact du Professeur", contactTitle: "Racontez votre probleme au Professeur Baben", phoneLabel: "Telephone", emailLabel: "Email", hoursLabel: "Horaires", hoursText: "OUVERT 24 heures sur 24", locationLabel: "Localisation", locationText: "Consultation dans toute l'Italie",
         formTitle: "Envie de m'ecrire ?", firstName: "Prenom", lastName: "Nom", messageLabel: "Message", submitButton: "Envoyer",
-        footerAbout: "Qui sommes-nous", footerContact: "Contact", footerTestimonials: "Temoignages", footerSwiss: "Consultations en Suisse", copyright: "2020-2026 &copy; Tous droits reserves | Professeur Baben - Grand voyant medium africain en Italie.", whatsapp: "Ecrire maintenant",
+        footerAbout: "Qui sommes-nous", footerContact: "Contact", footerTestimonials: "Temoignages", footerSwiss: "Consultations en Suisse", footerPrivacy: "Politique de confidentialite", footerCookie: "Politique cookies", footerTerms: "Conditions generales", copyright: "2020-2026 &copy; Tous droits reserves | Professeur Baben - Grand voyant medium africain en Italie.", whatsapp: "Ecrire maintenant",
         captchaError: "Captcha incorrect. Réessayez.", sentOk: "Message envoyé ! Nous vous répondrons dès que possible.", sentError: "Erreur d'envoi. Réessayez ou contactez-nous via WhatsApp."
       },
       en: {
@@ -2242,7 +2298,7 @@
         testi6Text: "\"Complicated family situation, a lot of tension. Things are much better now. I didn't think it could happen so quickly.\"",
         contactEyebrow: "Professor contact", contactTitle: "Tell Professor Baben about your problem", phoneLabel: "Phone", emailLabel: "Email", hoursLabel: "Hours", hoursText: "OPEN 24 hours a day", locationLabel: "Location", locationText: "Consultation throughout Italy",
         formTitle: "Would you like to write to me?", firstName: "First name", lastName: "Last name", messageLabel: "Message", submitButton: "Send",
-        footerAbout: "About", footerContact: "Contact", footerTestimonials: "Testimonials", footerSwiss: "Consultations in Switzerland", copyright: "2020-2026 &copy; All rights reserved | Professor Baben - Great African medium clairvoyant in Italy.", whatsapp: "Write now",
+        footerAbout: "About", footerContact: "Contact", footerTestimonials: "Testimonials", footerSwiss: "Consultations in Switzerland", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy", footerTerms: "Terms and conditions", copyright: "2020-2026 &copy; All rights reserved | Professor Baben - Great African medium clairvoyant in Italy.", whatsapp: "Write now",
         captchaError: "Incorrect captcha. Please try again.", sentOk: "Message sent! We will get back to you as soon as possible.", sentError: "Send error. Please try again or contact us via WhatsApp."
       }
     };
