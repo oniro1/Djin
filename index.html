@@ -1722,6 +1722,82 @@
       .image-stack .talisman { aspect-ratio: 16 / 9; height: auto !important; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ══════════════════════════════════════════════════════
+       MOBILE PERFORMANCE — disabilita effetti GPU pesanti
+       su tutti i dispositivi touch/mobile (≤980px)
+       ══════════════════════════════════════════════════════ */
+    @media (max-width: 980px) {
+      /* 1. Canvas 3D nascosto (lo script non lo carica già,
+            ma per sicurezza lo escludiamo anche via CSS) */
+      .ritual-3d-canvas { display: none !important; }
+
+      /* 2. Fumo: rimuovi filter:blur che è la op più costosa su mobile */
+      .smoke-vfx::after { filter: none; }
+      .smoke-column     { filter: none; }
+
+      /* 3. Background del body: da 4+ gradienti a 1 solo
+            (i gradienti multipli forzano repaint a ogni scroll) */
+      body {
+        background:
+          radial-gradient(circle at 18% 0%, rgba(215, 25, 32, 0.14), transparent 22rem),
+          var(--paper);
+      }
+      body::before { display: none; }
+
+      /* 4. Disabilita animazioni box-shadow pulsanti
+            (ogni frame deve ricalcolare l'ombra su ogni elemento) */
+      .service-icon { animation: none; }
+      .contact-icon { animation: none; }
+      .button       { animation: none; }
+      .eyebrow      { animation: none; }
+      .whatsapp     {
+        animation: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+      }
+
+      /* 5. Disabilita glow pulsante sulle immagini */
+      .portrait-card img,
+      .image-stack img,
+      .love-media img {
+        animation: none;
+      }
+
+      /* 6. Disabilita shimmer sul titolo H1
+            (background-clip:text + animation = costoso) */
+      .hero h1 {
+        background: none;
+        -webkit-text-fill-color: #f3eddf;
+        color: #f3eddf;
+        animation: none;
+      }
+
+      /* 7. Disabilita shimmer sui numeri delle stats */
+      .stat-number {
+        background: none;
+        -webkit-text-fill-color: var(--gold);
+        color: var(--gold);
+        animation: none;
+      }
+
+      /* 8. Nascondi i pseudo-elementi sweep e shimmer */
+      .button::after,
+      .hero-sweep::after,
+      .stats-band::after,
+      .service-icon::after { display: none; }
+
+      /* 9. Semplifica testi-card: rimuovi border animato
+            (background-size animata + background-clip è costosa) */
+      .testi-card {
+        background: rgba(18, 10, 12, 0.9);
+        background-image: none;
+        border: 1px solid rgba(215, 25, 32, 0.22);
+        animation: none;
+      }
+
+      /* 10. Disabilita glow pulsante sul logo brand */
+      .brand-logo-img { animation: none; }
+    }
   </style>
 </head>
 <body>
@@ -2116,176 +2192,184 @@
   </div>
 
   <script type="module">
-    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js";
-
+    /* ── 3D canvas: skip entirely on mobile to save CPU/GPU/bandwidth ── */
     const canvas = document.querySelector(".ritual-3d-canvas");
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.setClearColor(0x000000, 0);
-    renderer.shadowMap.enabled = true;
+    const isMobile = window.innerWidth < 980 || window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0, 8.4);
+    if (isMobile) {
+      canvas.style.display = "none";
+    } else {
+      /* Dynamic import: Three.js (~580 KB) is never downloaded on mobile */
+      const THREE = await import("https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js");
 
-    // Materials
-    const matRed   = new THREE.MeshStandardMaterial({ color: 0xaa1018, metalness: 0.72, roughness: 0.18, emissive: 0x3a0306, emissiveIntensity: 0.55 });
-    const matGold  = new THREE.MeshStandardMaterial({ color: 0xc8922a, metalness: 0.88, roughness: 0.12, emissive: 0x3a2008, emissiveIntensity: 0.35 });
-    const matBone  = new THREE.MeshStandardMaterial({ color: 0xd8c8b0, metalness: 0.15, roughness: 0.45, emissive: 0x180808, emissiveIntensity: 0.18 });
-    const matDark  = new THREE.MeshStandardMaterial({ color: 0x0e0608, metalness: 0.55, roughness: 0.35, emissive: 0x100204, emissiveIntensity: 0.28 });
-    const matGlow  = new THREE.MeshStandardMaterial({ color: 0xff2a30, metalness: 0.1,  roughness: 0.1,  emissive: 0xff2a30, emissiveIntensity: 2.2  });
-    const matGlowG = new THREE.MeshStandardMaterial({ color: 0xffaa44, metalness: 0.1,  roughness: 0.1,  emissive: 0xffaa44, emissiveIntensity: 1.8  });
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      /* Cap pixel-ratio at 1.5 even on desktop — halves fill-rate vs 2x */
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      renderer.setClearColor(0x000000, 0);
+      /* shadowMap removed — geometries don't cast/receive shadows */
 
-    // Lights
-    scene.add(new THREE.AmbientLight(0x3a0a0e, 2.2));
-    const keyLight = new THREE.PointLight(0xff3030, 55, 22);
-    keyLight.position.set(-2, 3, 6);
-    scene.add(keyLight);
-    const fillLight = new THREE.PointLight(0x7b1fa2, 18, 14);
-    fillLight.position.set(5, -1, 4);
-    scene.add(fillLight);
-    const rimLight = new THREE.PointLight(0xff9944, 22, 12);
-    rimLight.position.set(0, -4, 3);
-    scene.add(rimLight);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      camera.position.set(0, 0, 8.4);
 
-    function addMesh(group, geometry, material, position, rotation, scale = 1) {
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(...position);
-      mesh.rotation.set(...rotation);
-      mesh.scale.setScalar(scale);
-      group.add(mesh);
-      return mesh;
-    }
+      // Materials
+      const matRed   = new THREE.MeshStandardMaterial({ color: 0xaa1018, metalness: 0.72, roughness: 0.18, emissive: 0x3a0306, emissiveIntensity: 0.55 });
+      const matGold  = new THREE.MeshStandardMaterial({ color: 0xc8922a, metalness: 0.88, roughness: 0.12, emissive: 0x3a2008, emissiveIntensity: 0.35 });
+      const matBone  = new THREE.MeshStandardMaterial({ color: 0xd8c8b0, metalness: 0.15, roughness: 0.45, emissive: 0x180808, emissiveIntensity: 0.18 });
+      const matDark  = new THREE.MeshStandardMaterial({ color: 0x0e0608, metalness: 0.55, roughness: 0.35, emissive: 0x100204, emissiveIntensity: 0.28 });
+      const matGlow  = new THREE.MeshStandardMaterial({ color: 0xff2a30, metalness: 0.1,  roughness: 0.1,  emissive: 0xff2a30, emissiveIntensity: 2.2  });
+      const matGlowG = new THREE.MeshStandardMaterial({ color: 0xffaa44, metalness: 0.1,  roughness: 0.1,  emissive: 0xffaa44, emissiveIntensity: 1.8  });
 
-    // 1 — Torus Knot: elegant, complex, mystical
-    function makeTorusKnot() {
-      const group = new THREE.Group();
-      addMesh(group, new THREE.TorusKnotGeometry(0.46, 0.13, 160, 20, 2, 3), matRed,  [0, 0, 0], [0, 0, 0]);
-      addMesh(group, new THREE.SphereGeometry(0.09, 20, 14), matGlow, [0, 0, 0], [0, 0, 0]);
-      return group;
-    }
+      // Lights
+      scene.add(new THREE.AmbientLight(0x3a0a0e, 2.2));
+      const keyLight = new THREE.PointLight(0xff3030, 55, 22);
+      keyLight.position.set(-2, 3, 6);
+      scene.add(keyLight);
+      const fillLight = new THREE.PointLight(0x7b1fa2, 18, 14);
+      fillLight.position.set(5, -1, 4);
+      scene.add(fillLight);
+      const rimLight = new THREE.PointLight(0xff9944, 22, 12);
+      rimLight.position.set(0, -4, 3);
+      scene.add(rimLight);
 
-    // 2 — Ringed Gem: icosahedron with two orbital rings
-    function makeRingedGem() {
-      const group = new THREE.Group();
-      addMesh(group, new THREE.IcosahedronGeometry(0.44, 1), matBone, [0, 0, 0], [0, 0, 0]);
-      addMesh(group, new THREE.TorusGeometry(0.72, 0.025, 16, 80), matRed,  [0, 0, 0], [Math.PI / 2, 0, 0]);
-      addMesh(group, new THREE.TorusGeometry(0.72, 0.018, 16, 80), matGold, [0, 0, 0], [Math.PI / 3, 0.4, 0]);
-      addMesh(group, new THREE.SphereGeometry(0.07, 16, 12), matGlow,  [0.72, 0, 0], [0, 0, 0]);
-      addMesh(group, new THREE.SphereGeometry(0.05, 16, 12), matGlowG, [0, 0.72, 0], [0, 0, 0]);
-      return group;
-    }
+      function addMesh(group, geometry, material, position, rotation, scale = 1) {
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.position.set(...position);
+        mesh.rotation.set(...rotation);
+        mesh.scale.setScalar(scale);
+        group.add(mesh);
+        return mesh;
+      }
 
-    // 3 — Mystic Orb: dark sphere with three crossing rings
-    function makeMysticOrb() {
-      const group = new THREE.Group();
-      addMesh(group, new THREE.SphereGeometry(0.38, 40, 28), matDark, [0, 0, 0], [0, 0, 0]);
-      addMesh(group, new THREE.TorusGeometry(0.60, 0.022, 16, 80), matRed,  [0, 0, 0], [Math.PI / 2, 0, 0]);
-      addMesh(group, new THREE.TorusGeometry(0.60, 0.016, 16, 80), matGold, [0, 0, 0], [0, 0, 0]);
-      addMesh(group, new THREE.TorusGeometry(0.60, 0.014, 16, 80), matRed,  [0, 0, 0], [Math.PI / 4, Math.PI / 4, 0]);
-      addMesh(group, new THREE.SphereGeometry(0.11, 20, 16), matGlow, [0, 0, 0], [0, 0, 0]);
-      return group;
-    }
+      // 1 — Torus Knot: elegant, complex, mystical
+      function makeTorusKnot() {
+        const group = new THREE.Group();
+        addMesh(group, new THREE.TorusKnotGeometry(0.46, 0.13, 160, 20, 2, 3), matRed,  [0, 0, 0], [0, 0, 0]);
+        addMesh(group, new THREE.SphereGeometry(0.09, 20, 14), matGlow, [0, 0, 0], [0, 0, 0]);
+        return group;
+      }
 
-    // 4 — Crystal Cluster: pointed gem with satellites
-    function makeCrystalCluster() {
-      const group = new THREE.Group();
-      addMesh(group, new THREE.OctahedronGeometry(0.42, 0), matGold, [0, 0, 0], [0, 0, 0]);
-      [[0.58, 0.3, 0], [-0.58, -0.3, 0], [0, 0.62, 0.1], [0, -0.52, -0.1]].forEach(pos => {
-        addMesh(group, new THREE.OctahedronGeometry(0.14, 0), matRed, pos, [0.4, 0.2, 0.6], 1);
-      });
-      addMesh(group, new THREE.SphereGeometry(0.08, 16, 12), matGlow, [0, 0, 0], [0, 0, 0]);
-      return group;
-    }
+      // 2 — Ringed Gem: icosahedron with two orbital rings
+      function makeRingedGem() {
+        const group = new THREE.Group();
+        addMesh(group, new THREE.IcosahedronGeometry(0.44, 1), matBone, [0, 0, 0], [0, 0, 0]);
+        addMesh(group, new THREE.TorusGeometry(0.72, 0.025, 16, 80), matRed,  [0, 0, 0], [Math.PI / 2, 0, 0]);
+        addMesh(group, new THREE.TorusGeometry(0.72, 0.018, 16, 80), matGold, [0, 0, 0], [Math.PI / 3, 0.4, 0]);
+        addMesh(group, new THREE.SphereGeometry(0.07, 16, 12), matGlow,  [0.72, 0, 0], [0, 0, 0]);
+        addMesh(group, new THREE.SphereGeometry(0.05, 16, 12), matGlowG, [0, 0.72, 0], [0, 0, 0]);
+        return group;
+      }
 
-    const objects = [
-      { mesh: makeTorusKnot(), selector: ".hero", anchorX: 0.88, anchorY: 0.42, z: -1.0, scale: 1.18, speed: 0.38, floatA: 0.12, floatB: 0.08, phase: 0.0 },
-      { mesh: makeRingedGem(), selector: "#servizi", anchorX: 0.10, anchorY: 0.34, z: -1.2, scale: 1.0, speed: 0.28, floatA: 0.10, floatB: 0.08, phase: 1.4 },
-      { mesh: makeMysticOrb(), selector: ".transform", anchorX: 0.86, anchorY: 0.50, z: -0.8, scale: 1.0, speed: 0.33, floatA: 0.11, floatB: 0.06, phase: 2.8 },
-      { mesh: makeCrystalCluster(), selector: ".love", anchorX: 0.16, anchorY: 0.48, z: -1.5, scale: 0.95, speed: 0.45, floatA: 0.10, floatB: 0.09, phase: 4.2 },
-    ];
+      // 3 — Mystic Orb: dark sphere with three crossing rings
+      function makeMysticOrb() {
+        const group = new THREE.Group();
+        addMesh(group, new THREE.SphereGeometry(0.38, 40, 28), matDark, [0, 0, 0], [0, 0, 0]);
+        addMesh(group, new THREE.TorusGeometry(0.60, 0.022, 16, 80), matRed,  [0, 0, 0], [Math.PI / 2, 0, 0]);
+        addMesh(group, new THREE.TorusGeometry(0.60, 0.016, 16, 80), matGold, [0, 0, 0], [0, 0, 0]);
+        addMesh(group, new THREE.TorusGeometry(0.60, 0.014, 16, 80), matRed,  [0, 0, 0], [Math.PI / 4, Math.PI / 4, 0]);
+        addMesh(group, new THREE.SphereGeometry(0.11, 20, 16), matGlow, [0, 0, 0], [0, 0, 0]);
+        return group;
+      }
 
-    objects.forEach(o => {
-      o.target = new THREE.Vector3();
-      o.mesh.scale.setScalar(o.scale);
-      scene.add(o.mesh);
-    });
+      // 4 — Crystal Cluster: pointed gem with satellites
+      function makeCrystalCluster() {
+        const group = new THREE.Group();
+        addMesh(group, new THREE.OctahedronGeometry(0.42, 0), matGold, [0, 0, 0], [0, 0, 0]);
+        [[0.58, 0.3, 0], [-0.58, -0.3, 0], [0, 0.62, 0.1], [0, -0.52, -0.1]].forEach(pos => {
+          addMesh(group, new THREE.OctahedronGeometry(0.14, 0), matRed, pos, [0.4, 0.2, 0.6], 1);
+        });
+        addMesh(group, new THREE.SphereGeometry(0.08, 16, 12), matGlow, [0, 0, 0], [0, 0, 0]);
+        return group;
+      }
 
-    const mouse = { x: 0, y: 0 };
-    let lastScrollY = window.scrollY;
-    let scrollImpulse = 0;
+      const objects = [
+        { mesh: makeTorusKnot(), selector: ".hero", anchorX: 0.88, anchorY: 0.42, z: -1.0, scale: 1.18, speed: 0.38, floatA: 0.12, floatB: 0.08, phase: 0.0 },
+        { mesh: makeRingedGem(), selector: "#servizi", anchorX: 0.10, anchorY: 0.34, z: -1.2, scale: 1.0, speed: 0.28, floatA: 0.10, floatB: 0.08, phase: 1.4 },
+        { mesh: makeMysticOrb(), selector: ".transform", anchorX: 0.86, anchorY: 0.50, z: -0.8, scale: 1.0, speed: 0.33, floatA: 0.11, floatB: 0.06, phase: 2.8 },
+        { mesh: makeCrystalCluster(), selector: ".love", anchorX: 0.16, anchorY: 0.48, z: -1.5, scale: 0.95, speed: 0.45, floatA: 0.10, floatB: 0.09, phase: 4.2 },
+      ];
 
-    function viewportToWorld(clientX, clientY, z = -1) {
-      const ndc = new THREE.Vector3(
-        (clientX / window.innerWidth) * 2 - 1,
-        -(clientY / window.innerHeight) * 2 + 1,
-        0.5
-      );
-      ndc.unproject(camera);
-      const direction = ndc.sub(camera.position).normalize();
-      const distance = (z - camera.position.z) / direction.z;
-      return camera.position.clone().add(direction.multiplyScalar(distance));
-    }
-
-    function updateSectionAnchors() {
-      objects.forEach((item) => {
-        const section = document.querySelector(item.selector);
-        if (!section) return;
-        const rect = section.getBoundingClientRect();
-        const clientX = rect.left + rect.width * item.anchorX;
-        const clientY = rect.top + rect.height * item.anchorY;
-        item.target.copy(viewportToWorld(clientX, clientY, item.z));
-      });
-    }
-
-
-    function resizeRitualScene() {
-      const w = window.innerWidth, h = window.innerHeight;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      updateSectionAnchors();
-    }
-    window.addEventListener("resize", resizeRitualScene);
-    window.addEventListener("load", updateSectionAnchors);
-    window.addEventListener("pointermove", (event) => {
-      mouse.x = event.clientX / window.innerWidth - 0.5;
-      mouse.y = event.clientY / window.innerHeight - 0.5;
-    }, { passive: true });
-    window.addEventListener("scroll", () => {
-      const delta = window.scrollY - lastScrollY;
-      lastScrollY = window.scrollY;
-      scrollImpulse = THREE.MathUtils.clamp(scrollImpulse + delta / 70, -1.4, 1.4);
-      updateSectionAnchors();
-    }, { passive: true });
-    resizeRitualScene();
-
-    function animateRitualScene(time) {
-      const t = time * 0.001;
-
-      // Slowly orbit the key light for dynamic shadows
-      keyLight.position.x = Math.cos(t * 0.18) * 4.5;
-      keyLight.position.z = Math.sin(t * 0.18) * 5.5 + 2;
-      scrollImpulse *= 0.86;
-
-      objects.forEach((item, i) => {
-        const floatY = Math.sin(t * item.speed + item.phase) * item.floatA;
-        const floatX = Math.cos(t * item.speed * 0.65 + item.phase) * item.floatB;
-        const twitch = Math.sin(t * 38 + i * 2.1) * scrollImpulse;
-        const targetX = item.target.x + floatX + mouse.x * 0.26 + twitch * (0.08 + i * 0.012);
-        const targetY = item.target.y + floatY - mouse.y * 0.18 + Math.cos(t * 31 + i) * scrollImpulse * 0.05;
-        const targetZ = item.target.z + Math.abs(scrollImpulse) * 0.12;
-        item.mesh.position.lerp(new THREE.Vector3(targetX, targetY, targetZ), 0.16);
-        item.mesh.rotation.x += 0.004 + i * 0.0008 + twitch * 0.015;
-        item.mesh.rotation.y += 0.006 + i * 0.0012 + scrollImpulse * 0.018;
-        item.mesh.rotation.z += 0.002 + i * 0.0005 + twitch * 0.012;
+      objects.forEach(o => {
+        o.target = new THREE.Vector3();
+        o.mesh.scale.setScalar(o.scale);
+        scene.add(o.mesh);
       });
 
-      renderer.render(scene, camera);
+      const mouse = { x: 0, y: 0 };
+      let lastScrollY = window.scrollY;
+      let scrollImpulse = 0;
+
+      function viewportToWorld(clientX, clientY, z = -1) {
+        const ndc = new THREE.Vector3(
+          (clientX / window.innerWidth) * 2 - 1,
+          -(clientY / window.innerHeight) * 2 + 1,
+          0.5
+        );
+        ndc.unproject(camera);
+        const direction = ndc.sub(camera.position).normalize();
+        const distance = (z - camera.position.z) / direction.z;
+        return camera.position.clone().add(direction.multiplyScalar(distance));
+      }
+
+      function updateSectionAnchors() {
+        objects.forEach((item) => {
+          const section = document.querySelector(item.selector);
+          if (!section) return;
+          const rect = section.getBoundingClientRect();
+          const clientX = rect.left + rect.width * item.anchorX;
+          const clientY = rect.top + rect.height * item.anchorY;
+          item.target.copy(viewportToWorld(clientX, clientY, item.z));
+        });
+      }
+
+      function resizeRitualScene() {
+        const w = window.innerWidth, h = window.innerHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        updateSectionAnchors();
+      }
+      window.addEventListener("resize", resizeRitualScene);
+      window.addEventListener("load", updateSectionAnchors);
+      window.addEventListener("pointermove", (event) => {
+        mouse.x = event.clientX / window.innerWidth - 0.5;
+        mouse.y = event.clientY / window.innerHeight - 0.5;
+      }, { passive: true });
+      window.addEventListener("scroll", () => {
+        const delta = window.scrollY - lastScrollY;
+        lastScrollY = window.scrollY;
+        scrollImpulse = THREE.MathUtils.clamp(scrollImpulse + delta / 70, -1.4, 1.4);
+        updateSectionAnchors();
+      }, { passive: true });
+      resizeRitualScene();
+
+      function animateRitualScene(time) {
+        const t = time * 0.001;
+
+        // Slowly orbit the key light for dynamic shadows
+        keyLight.position.x = Math.cos(t * 0.18) * 4.5;
+        keyLight.position.z = Math.sin(t * 0.18) * 5.5 + 2;
+        scrollImpulse *= 0.86;
+
+        objects.forEach((item, i) => {
+          const floatY = Math.sin(t * item.speed + item.phase) * item.floatA;
+          const floatX = Math.cos(t * item.speed * 0.65 + item.phase) * item.floatB;
+          const twitch = Math.sin(t * 38 + i * 2.1) * scrollImpulse;
+          const targetX = item.target.x + floatX + mouse.x * 0.26 + twitch * (0.08 + i * 0.012);
+          const targetY = item.target.y + floatY - mouse.y * 0.18 + Math.cos(t * 31 + i) * scrollImpulse * 0.05;
+          const targetZ = item.target.z + Math.abs(scrollImpulse) * 0.12;
+          item.mesh.position.lerp(new THREE.Vector3(targetX, targetY, targetZ), 0.16);
+          item.mesh.rotation.x += 0.004 + i * 0.0008 + twitch * 0.015;
+          item.mesh.rotation.y += 0.006 + i * 0.0012 + scrollImpulse * 0.018;
+          item.mesh.rotation.z += 0.002 + i * 0.0005 + twitch * 0.012;
+        });
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animateRitualScene);
+      }
+
       requestAnimationFrame(animateRitualScene);
     }
-
-    requestAnimationFrame(animateRitualScene);
   </script>
 
   <script>
