@@ -439,13 +439,27 @@
       justify-content: center;
       flex-direction: column;
       gap: 5px;
+      flex-shrink: 0;
+    }
+
+    /* Animazione X quando il menu è aperto */
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
     }
 
     .nav-toggle span {
       width: 22px;
       height: 2px;
-      background: var(--green);
+      background: #e8deca;
       display: block;
+      transition: transform 0.25s ease, opacity 0.25s ease;
     }
 
     .menu {
@@ -1507,7 +1521,8 @@
       right: 18px;
       bottom: 18px;
       z-index: 60;
-      display: none;
+      /* nascosto via opacity+pointer-events per poter animare */
+      display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
@@ -1519,10 +1534,17 @@
       box-shadow: 0 20px 55px rgba(0, 0, 0, 0.45);
       color: #efe9dc;
       font-size: 14px;
+      /* stato iniziale: nascosto, traslato verso il basso */
+      opacity: 0;
+      transform: translateY(16px);
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
 
     .cookie-banner.show {
-      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .cookie-banner p {
@@ -1706,9 +1728,19 @@
       /* Footer */
       .footer-nav ul { gap: 12px 16px; font-size: 11px; }
       .footer-bottom .container { flex-direction: column; gap: 10px; text-align: center; }
-      .cookie-banner { flex-direction: column; align-items: flex-start; }
-      .cookie-actions { width: 100%; }
-      .cookie-actions button { flex: 1; }
+      .cookie-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        /* su mobile: posiziona sopra il bottone WhatsApp (46px + 12px bottom + 10px gap = 68px) */
+        bottom: 68px;
+        left: 12px;
+        right: 12px;
+        padding: 14px 14px;
+        font-size: 13px;
+        gap: 12px;
+      }
+      .cookie-actions { width: 100%; display: flex; gap: 8px; }
+      .cookie-actions button { flex: 1; min-height: 44px; }
 
       /* WhatsApp */
       .whatsapp { right: 12px; bottom: 12px; padding: 0 14px; font-size: 13px; min-height: 46px; }
@@ -1834,7 +1866,7 @@
         <img class="brand-logo-img" src="assets/ChatGPT Image May 20, 2026, 12_24_38 PM.png" alt="Professore Baben logo">
         <span class="brand-name">Professore Baben <span data-i18n="brandSubtitle">Veggente Medium</span></span>
       </a>
-      <button class="nav-toggle" type="button" aria-label="Apri menu" onclick="document.querySelector('.menu').classList.toggle('open')">
+      <button class="nav-toggle" type="button" aria-label="Apri menu" aria-expanded="false" onclick="const m=document.querySelector('.menu');const open=m.classList.toggle('open');this.setAttribute('aria-expanded',open);this.setAttribute('aria-label',open?'Chiudi menu':'Apri menu')">
         <span></span>
         <span></span>
         <span></span>
@@ -2480,17 +2512,20 @@
 
     const cookieBanner = document.getElementById("cookieBanner");
     const cookieChoice = localStorage.getItem("cookieConsent");
-    if (!cookieChoice) cookieBanner.classList.add("show");
+    /* Mostra con piccolo delay per permettere al CSS di inizializzarsi */
+    if (!cookieChoice) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => cookieBanner.classList.add("show"));
+      });
+    }
 
-    document.getElementById("acceptCookies").addEventListener("click", () => {
-      localStorage.setItem("cookieConsent", "accepted");
+    function dismissCookieBanner(choice) {
+      localStorage.setItem("cookieConsent", choice);
       cookieBanner.classList.remove("show");
-    });
+    }
 
-    document.getElementById("rejectCookies").addEventListener("click", () => {
-      localStorage.setItem("cookieConsent", "rejected");
-      cookieBanner.classList.remove("show");
-    });
+    document.getElementById("acceptCookies").addEventListener("click", () => dismissCookieBanner("accepted"));
+    document.getElementById("rejectCookies").addEventListener("click",  () => dismissCookieBanner("rejected"));
 
     async function sendMessage(event) {
       event.preventDefault();
@@ -2548,7 +2583,13 @@
         const target = document.querySelector(selector);
         if (!target) return;
         event.preventDefault();
-        document.querySelector(".menu").classList.remove("open");
+        const menu = document.querySelector(".menu");
+        menu.classList.remove("open");
+        const toggle = document.querySelector(".nav-toggle");
+        if (toggle) {
+          toggle.setAttribute("aria-expanded", "false");
+          toggle.setAttribute("aria-label", "Apri menu");
+        }
         target.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
