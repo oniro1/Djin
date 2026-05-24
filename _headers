@@ -1,0 +1,10 @@
+/*
+  # Sovrascrive i Permissions-Policy automatici di Cloudflare
+  # con solo feature standard riconosciute dai browser.
+  # Elimina gli errori "Unrecognized feature" in console.
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), fullscreen=(self), autoplay=()
+
+  # Sicurezza base
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
