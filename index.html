@@ -3,13 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Professore Baben - Grande Veggente Medium Africano</title>
-  <meta name="description" content="Professore Baben, grande veggente medium africano. Consulti per amore, fortuna, lavoro, esami, protezione e problemi spirituali." />
+  <title>Professore Baben – Veggente Medium Africano a Novara | Consulti Spirituali</title>
+  <meta name="description" content="Professore Baben, veggente medium africano a Novara. Ritorno dell'ex, protezione spirituale, fortuna e successo. Consulti in presenza e a distanza per tutta Italia, Francia e Svizzera." />
+
+  <!-- SEO: canonical + robots -->
+  <link rel="canonical" href="https://professorbaben.com/" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- SEO: geo targeting -->
+  <meta name="geo.region" content="IT-NO" />
+  <meta name="geo.placename" content="Novara" />
+  <meta name="geo.position" content="45.4468;8.6194" />
+  <meta name="ICBM" content="45.4468, 8.6194" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://professorbaben.com/" />
+  <meta property="og:title" content="Professore Baben – Veggente Medium Africano a Novara" />
+  <meta property="og:description" content="Consulti spirituali con il Professore Baben: ritorno dell'ex, protezione, fortuna. In presenza a Novara o a distanza per tutta Italia, Francia e Svizzera." />
+  <meta property="og:image" content="https://professorbaben.com/assets/34ecbbe6-bb61-433b-9576-5d767a407168.png" />
+  <meta property="og:locale" content="it_IT" />
+  <meta property="og:site_name" content="Professore Baben" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Professore Baben – Veggente Medium Africano a Novara" />
+  <meta name="twitter:description" content="Consulti spirituali: ritorno dell'ex, protezione, fortuna. Novara e tutta Italia." />
+  <meta name="twitter:image" content="https://professorbaben.com/assets/34ecbbe6-bb61-433b-9576-5d767a407168.png" />
   <link rel="icon" type="image/png" href="assets/34ecbbe6-bb61-433b-9576-5d767a407168.png">
   <link rel="apple-touch-icon" href="assets/34ecbbe6-bb61-433b-9576-5d767a407168.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato:wght@300;400;700;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Structured Data: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "name": "Professore Baben – Veggente Medium Africano",
+    "alternateName": "Professor Baben",
+    "description": "Veggente medium africano a Novara. Consulti spirituali per ritorno dell'ex, protezione spirituale, fortuna e successo, scioglimento di malefici. Disponibile in presenza a Novara e a distanza per tutta Italia, Francia e Svizzera.",
+    "url": "https://professorbaben.com",
+    "telephone": "+393519321942",
+    "email": "professorbaben@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Via Marco Polo 8",
+      "addressLocality": "Novara",
+      "postalCode": "28100",
+      "addressRegion": "NO",
+      "addressCountry": "IT"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 45.4468,
+      "longitude": 8.6194
+    },
+    "areaServed": [
+      {"@type": "City", "name": "Novara"},
+      {"@type": "Country", "name": "Italia"},
+      {"@type": "Country", "name": "Francia"},
+      {"@type": "Country", "name": "Svizzera"}
+    ],
+    "openingHours": "Mo-Su 00:00-23:59",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Servizi spirituali",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Ritorno dell'ex – Rimedi d'amore"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Protezione spirituale e scioglimento malefici"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Fortuna e successo in amore e lavoro"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Consulto di veggenza e medium"}}
+      ]
+    },
+    "image": "https://professorbaben.com/assets/34ecbbe6-bb61-433b-9576-5d767a407168.png",
+    "priceRange": "€€",
+    "sameAs": []
+  }
+  </script>
+
   <style>
     :root {
       --gold: #d71920;
@@ -351,6 +423,9 @@
     }
 
     .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 21;
       background: #050405;
       color: #fff;
       font-size: 16px;
@@ -378,7 +453,7 @@
 
     .site-header {
       position: sticky;
-      top: 0;
+      top: 52px;
       z-index: 20;
       background: rgba(10, 13, 14, 0.96);
       border-bottom: 1px solid rgba(215, 25, 32, 0.24);
@@ -1630,8 +1705,9 @@
     @media (max-width: 680px) {
       .container { width: min(100% - 24px, 1120px); }
 
-      /* Topbar */
-      .topbar { font-size: 14px; }
+      /* Topbar — mobile: non sticky */
+      .topbar { position: static; font-size: 14px; }
+      .site-header { top: 0; }
       .topbar .container {
         flex-direction: column;
         gap: 4px;
@@ -1897,7 +1973,7 @@
         <div class="hero-content">
           <div class="eyebrow" data-i18n="heroEyebrow">Grande veggente medium africano</div>
           <h1 data-i18n="heroTitle">Professore Baben, erede dei segreti dei suoi antenati</h1>
-          <p data-i18n="heroText">Di padre in figlio, il Professore Baben mette la sua esperienza al servizio di chi cerca risposte rapide e riservate. Consulti per amore, fortuna, lavoro, successo negli esami, protezione contro i pericoli e scioglimento dei problemi spirituali.</p>
+          <p data-i18n="heroText">Di padre in figlio, il Professore Baben — veggente medium africano con sede a Novara — mette la sua esperienza al servizio di chi cerca risposte rapide e riservate. Consulti in presenza a Novara o a distanza per tutta Italia, Francia e Svizzera: amore, fortuna, lavoro, ritorno dell'ex, protezione spirituale e scioglimento dei malefici.</p>
           <a class="button" href="#contatto" data-i18n="heroButton">Contatta ora</a>
         </div>
       </div>
@@ -1913,7 +1989,7 @@
 
         <div class="service-lead">
           <div class="portrait-card">
-            <img src="assets/nathaniel-abadji-0Hj3ITcHMCE-unsplash.jpg" alt="Veggente africana con oggetti rituali">
+            <img src="assets/nathaniel-abadji-0Hj3ITcHMCE-unsplash.jpg" alt="Veggente africana con oggetti rituali" width="1017" height="1200" loading="lazy">
           </div>
 
           <div class="services-grid">
@@ -1985,10 +2061,10 @@
           <a class="button outline" href="#contatto" data-i18n="infoButton">Chiedi informazioni</a>
         </div>
         <div class="image-stack" aria-label="Rituali e immagini spirituali">
-          <img class="talisman" src="assets/david-brooke-martin-FD9jL29KD5E-unsplash.jpg" alt="Incenso rituale su sfondo nero">
-          <img class="small-one" src="assets/WhatsApp Image 2026-05-20 at 20.43.08.jpeg" alt="Oggetti rituali">
-          <img class="small-two" src="assets/brooke-balentine-S-AkMAN80Vs-unsplash.jpg" alt="Cerchio di candele rituali">
-          <img class="small-three" src="assets/ritual-cropped.jpg" alt="Rituale africano su telo rosso">
+          <img class="talisman" src="assets/david-brooke-martin-FD9jL29KD5E-unsplash.jpg" alt="Incenso rituale su sfondo nero" width="1280" height="1920" loading="lazy">
+          <img class="small-one" src="assets/WhatsApp Image 2026-05-20 at 20.43.08.jpeg" alt="Oggetti rituali" width="506" height="900" loading="lazy">
+          <img class="small-two" src="assets/brooke-balentine-S-AkMAN80Vs-unsplash.jpg" alt="Cerchio di candele rituali" width="900" height="600" loading="lazy">
+          <img class="small-three" src="assets/ritual-cropped.jpg" alt="Rituale africano su telo rosso" width="522" height="538" loading="lazy">
         </div>
       </div>
     </section>
@@ -1996,8 +2072,8 @@
     <section class="section love">
       <div class="container love-layout">
         <div class="love-media">
-          <img class="short" src="assets/vladislav-nahorny-KLFfzvFNjw4-unsplash.jpg" alt="Donna con candela">
-          <img src="assets/alexander-fastovets-CptcxHgxI00-unsplash.jpg" alt="Fiamma blu su sfondo nero">
+          <img class="short" src="assets/vladislav-nahorny-KLFfzvFNjw4-unsplash.jpg" alt="Donna con candela" width="801" height="1200" loading="lazy">
+          <img src="assets/alexander-fastovets-CptcxHgxI00-unsplash.jpg" alt="Fiamma blu su sfondo nero" width="1200" height="1200" loading="lazy">
         </div>
         <div class="copy">
           <div class="eyebrow" data-i18n="loveEyebrow">Amore, sostegno e protezione</div>
@@ -2143,8 +2219,8 @@
             <div class="contact-item">
               <div class="contact-icon">IT</div>
               <div>
-                <h3 data-i18n="locationLabel">Localizzazione</h3>
-                <p data-i18n="locationText">Consulenza in tutta Italia</p>
+                <h3 data-i18n="locationLabel">Sede</h3>
+                <p data-i18n="locationText">Via Marco Polo 8, 28100 Novara (NO) · Consulenza in tutta Italia</p>
               </div>
             </div>
           </div>
@@ -2408,7 +2484,7 @@
     const translations = {
       it: {
         brandSubtitle: "Veggente Medium", navServices: "Problemi trattati", navTestimonials: "Testimonianze dei clienti", navBooking: "Prenotazione online",
-        heroEyebrow: "Grande veggente medium africano", heroTitle: "Professore Baben, erede dei segreti dei suoi antenati", heroText: "Di padre in figlio, il Professore Baben mette la sua esperienza al servizio di chi cerca risposte rapide e riservate. Consulti per amore, fortuna, lavoro, successo negli esami, protezione contro i pericoli e scioglimento dei problemi spirituali.", heroButton: "Contatta ora",
+        heroEyebrow: "Grande veggente medium africano", heroTitle: "Professore Baben, erede dei segreti dei suoi antenati", heroText: "Di padre in figlio, il Professore Baben — veggente medium africano con sede a Novara — mette la sua esperienza al servizio di chi cerca risposte rapide e riservate. Consulti in presenza a Novara o a distanza per tutta Italia, Francia e Svizzera: amore, fortuna, lavoro, ritorno dell'ex, protezione spirituale e scioglimento dei malefici.", heroButton: "Contatta ora",
         servicesEyebrow: "Risolvera i tuoi problemi", servicesTitle: "Amore, fortuna, lavoro, esami e protezione", servicesIntro: "Tutti i problemi hanno una soluzione. Il Professore Baben ascolta la tua situazione e prepara un consulto discreto per aiutarti a ritrovare stabilita, successo e protezione.",
         service1Title: "Amore e ritorno affettivo", service1Text: "Aiuto per problemi sentimentali, incomprensioni, separazioni e riavvicinamenti. Un percorso riservato per chiarire il legame e riaprire il dialogo.",
         service2Title: "Fortuna nei giochi", service2Text: "Consulto dedicato alla fortuna, alle energie favorevoli e ai momenti in cui senti il bisogno di sbloccare una fase difficile.",
@@ -2428,14 +2504,14 @@
         testi4Text: "\"Ero scettico, ma ha descritto la mia situazione con una precisione che non mi aspettavo. Risultati concreti, nessuna promessa vuota.\"",
         testi5Text: "\"Finalmente qualcuno che ascolta davvero. Discrezione totale, nessun giudizio. Lo ricontatterei senza pensarci.\"",
         testi6Text: "\"Situazione familiare complicata, tanta tensione. Oggi stiamo molto meglio. Non pensavo fosse possibile così in fretta.\"",
-        contactEyebrow: "Contatto del Professore", contactTitle: "Racconta il tuo problema a Professore Baben", phoneLabel: "Telefono", emailLabel: "Email", hoursLabel: "Orari", hoursText: "APERTO 24 ore su 24", locationLabel: "Localizzazione", locationText: "Consulenza in tutta Italia",
+        contactEyebrow: "Contatto del Professore", contactTitle: "Racconta il tuo problema a Professore Baben", phoneLabel: "Telefono", emailLabel: "Email", hoursLabel: "Orari", hoursText: "APERTO 24 ore su 24", locationLabel: "Sede", locationText: "Via Marco Polo 8, 28100 Novara (NO) · Consulenza in tutta Italia",
         formTitle: "Hai voglia di scrivermi ?", firstName: "Nome", lastName: "Cognome", messageLabel: "Messaggio", submitButton: "Invia",
         footerAbout: "Chi siamo", footerContact: "Contatto", footerTestimonials: "Testimonianze", footerSwiss: "Consulti in Svizzera", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy", footerTerms: "Termini e condizioni", copyright: "2020-2026 &copy; Tutti i diritti riservati | Professore Baben - Grande veggente medium africano in Italia.", whatsapp: "Scrivi ora",
         captchaError: "Captcha non corretto. Riprova.", sentOk: "Messaggio inviato! Ti risponderemo al più presto.", sentError: "Errore nell'invio. Riprova o contattaci via WhatsApp."
       },
       fr: {
         brandSubtitle: "Voyant Medium", navServices: "Problemes traites", navTestimonials: "Temoignages clients", navBooking: "Reservation en ligne",
-        heroEyebrow: "Grand voyant medium africain", heroTitle: "Professeur Baben, heritier des secrets de ses ancetres", heroText: "De pere en fils, le Professeur Baben met son experience au service de celles et ceux qui cherchent des reponses rapides et confidentielles. Consultations pour l'amour, la chance, le travail, la reussite aux examens, la protection contre les dangers et les problemes spirituels.", heroButton: "Contacter maintenant",
+        heroEyebrow: "Grand voyant medium africain", heroTitle: "Professeur Baben, heritier des secrets de ses ancetres", heroText: "De pere en fils, le Professeur Baben — voyant medium africain base a Novara, Italie — met son experience au service de celles et ceux qui cherchent des reponses rapides et confidentielles. Consultations en presentiel a Novara ou a distance pour toute l'Italie, la France et la Suisse : amour, chance, retour de l'etre aime, protection spirituelle et levee de mauvais sorts.", heroButton: "Contacter maintenant",
         servicesEyebrow: "Il resout vos problemes", servicesTitle: "Amour, chance, travail, examens et protection", servicesIntro: "Tout probleme a une solution. Le Professeur Baben ecoute votre situation et prepare une consultation discrete pour vous aider a retrouver stabilite, succes et protection.",
         service1Title: "Amour et retour affectif", service1Text: "Aide pour les problemes sentimentaux, incomprehensions, separations et rapprochements. Un parcours confidentiel pour clarifier le lien et rouvrir le dialogue.",
         service2Title: "Chance aux jeux", service2Text: "Consultation dediee a la chance, aux energies favorables et aux moments ou vous ressentez le besoin de debloquer une periode difficile.",
@@ -2453,14 +2529,14 @@
         testi4Text: "\"J'étais sceptique, mais il a décrit ma situation avec une précision que je n'attendais pas. Des résultats concrets, pas de fausses promesses.\"",
         testi5Text: "\"Enfin quelqu'un qui écoute vraiment. Discrétion totale, aucun jugement. Je le recontacterais sans hésiter.\"",
         testi6Text: "\"Situation familiale compliquée, beaucoup de tension. Aujourd'hui ça va beaucoup mieux. Je ne pensais pas que ce serait possible si vite.\"",
-        contactEyebrow: "Contact du Professeur", contactTitle: "Racontez votre probleme au Professeur Baben", phoneLabel: "Telephone", emailLabel: "Email", hoursLabel: "Horaires", hoursText: "OUVERT 24 heures sur 24", locationLabel: "Localisation", locationText: "Consultation dans toute l'Italie",
+        contactEyebrow: "Contact du Professeur", contactTitle: "Racontez votre probleme au Professeur Baben", phoneLabel: "Telephone", emailLabel: "Email", hoursLabel: "Horaires", hoursText: "OUVERT 24 heures sur 24", locationLabel: "Siege", locationText: "Via Marco Polo 8, 28100 Novara (NO) · Consultations dans toute l'Italie",
         formTitle: "Envie de m'ecrire ?", firstName: "Prenom", lastName: "Nom", messageLabel: "Message", submitButton: "Envoyer",
         footerAbout: "Qui sommes-nous", footerContact: "Contact", footerTestimonials: "Temoignages", footerSwiss: "Consultations en Suisse", footerPrivacy: "Politique de confidentialite", footerCookie: "Politique cookies", footerTerms: "Conditions generales", copyright: "2020-2026 &copy; Tous droits reserves | Professeur Baben - Grand voyant medium africain en Italie.", whatsapp: "Ecrire maintenant",
         captchaError: "Captcha incorrect. Réessayez.", sentOk: "Message envoyé ! Nous vous répondrons dès que possible.", sentError: "Erreur d'envoi. Réessayez ou contactez-nous via WhatsApp."
       },
       en: {
         brandSubtitle: "Medium Clairvoyant", navServices: "Problems treated", navTestimonials: "Client testimonials", navBooking: "Online booking",
-        heroEyebrow: "Great African medium clairvoyant", heroTitle: "Professor Baben, heir to his ancestors' secrets", heroText: "From father to son, Professor Baben puts his experience at the service of people looking for quick and confidential answers. Consultations for love, luck, work, exam success, protection from danger, and spiritual problems.", heroButton: "Contact now",
+        heroEyebrow: "Great African medium clairvoyant", heroTitle: "Professor Baben, heir to his ancestors' secrets", heroText: "From father to son, Professor Baben — African medium clairvoyant based in Novara, Italy — puts his experience at the service of those seeking quick and confidential answers. In-person consultations in Novara or remote sessions throughout Italy, France, and Switzerland: love, luck, ex's return, spiritual protection, and removal of negative energies.", heroButton: "Contact now",
         servicesEyebrow: "He can help with your problems", servicesTitle: "Love, luck, work, exams and protection", servicesIntro: "Every problem has a solution. Professor Baben listens to your situation and prepares a discreet consultation to help you regain stability, success and protection.",
         service1Title: "Love and emotional return", service1Text: "Help with sentimental problems, misunderstandings, separations and reconnections. A confidential path to clarify the bond and reopen dialogue.",
         service2Title: "Luck in games", service2Text: "A consultation focused on luck, favorable energies and moments when you need to unlock a difficult phase.",
@@ -2478,7 +2554,7 @@
         testi4Text: "\"I was sceptical, but he described my situation with a precision I didn't expect. Real results, no empty promises.\"",
         testi5Text: "\"Finally someone who truly listens. Complete discretion, no judgement. I would contact him again without a second thought.\"",
         testi6Text: "\"Complicated family situation, a lot of tension. Things are much better now. I didn't think it could happen so quickly.\"",
-        contactEyebrow: "Professor contact", contactTitle: "Tell Professor Baben about your problem", phoneLabel: "Phone", emailLabel: "Email", hoursLabel: "Hours", hoursText: "OPEN 24 hours a day", locationLabel: "Location", locationText: "Consultation throughout Italy",
+        contactEyebrow: "Professor contact", contactTitle: "Tell Professor Baben about your problem", phoneLabel: "Phone", emailLabel: "Email", hoursLabel: "Hours", hoursText: "OPEN 24 hours a day", locationLabel: "Address", locationText: "Via Marco Polo 8, 28100 Novara (NO) · Consultations throughout Italy",
         formTitle: "Would you like to write to me?", firstName: "First name", lastName: "Last name", messageLabel: "Message", submitButton: "Send",
         footerAbout: "About", footerContact: "Contact", footerTestimonials: "Testimonials", footerSwiss: "Consultations in Switzerland", footerPrivacy: "Privacy Policy", footerCookie: "Cookie Policy", footerTerms: "Terms and conditions", copyright: "2020-2026 &copy; All rights reserved | Professor Baben - Great African medium clairvoyant in Italy.", whatsapp: "Write now",
         captchaError: "Incorrect captcha. Please try again.", sentOk: "Message sent! We will get back to you as soon as possible.", sentError: "Send error. Please try again or contact us via WhatsApp."
